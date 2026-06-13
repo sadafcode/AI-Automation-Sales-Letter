@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Automation Sales Letter</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,Helvetica,sans-serif;background:#0a0a14;color:#fff;}
+.slide{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 40px;text-align:center;background:#0a0a14;border-bottom:4px solid #111;}
+.slide.case-slide{padding:0;justify-content:flex-start;}
+.top-note{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#aaa;margin-bottom:50px;max-width:700px;line-height:2;}
+.hero-title{font-size:64px;font-weight:900;text-transform:uppercase;line-height:1.05;max-width:840px;letter-spacing:-1px;}
+.here-how{font-size:20px;font-weight:900;letter-spacing:5px;color:#fff;margin-top:18px;text-transform:uppercase;}
+.green{color:#66ff66;}
+.sec-title{font-size:88px;font-weight:900;text-transform:uppercase;margin-bottom:20px;}
+.arrow-down{font-size:90px;color:#66ff66;line-height:1;margin:10px 0 30px;}
+.check-list{list-style:none;text-align:left;max-width:780px;margin:0 auto;}
+.check-list li{font-size:26px;margin-bottom:22px;display:flex;align-items:flex-start;gap:14px;line-height:1.4;}
+.ck{color:#66ff66;font-size:26px;flex-shrink:0;margin-top:2px;}
+.ck-gray{color:#888;font-size:26px;flex-shrink:0;margin-top:2px;}
+.cs-header{background:#111122;width:100%;padding:32px 24px;}
+.cs-header h3{font-size:26px;font-weight:700;max-width:900px;margin:0 auto;line-height:1.45;}
+.cs-header h3 strong{font-weight:900;}
+.cs-img{width:100%;max-width:960px;height:auto;display:block;margin:0 auto;}
+.big-head{font-size:42px;font-weight:900;max-width:900px;line-height:1.2;margin-bottom:30px;}
+.para{font-size:22px;line-height:1.8;max-width:860px;text-align:left;margin:0 auto 25px;}
+.bullet-list{text-align:left;max-width:860px;margin:0 auto 25px;padding-left:28px;}
+.bullet-list li{font-size:22px;margin-bottom:14px;line-height:1.55;list-style:disc;}
+.ps-block{font-size:24px;font-weight:700;max-width:800px;text-align:center;line-height:1.65;margin-top:40px;}
+.fw-title{font-size:36px;font-weight:900;text-transform:uppercase;max-width:920px;line-height:1.2;margin-bottom:48px;}
+.step-block{text-align:left;max-width:920px;margin:0 auto 35px;font-size:20px;line-height:1.75;}
+.step-label{color:#66ff66;font-weight:900;font-size:22px;}
+.res-head{font-size:32px;font-weight:900;max-width:860px;line-height:1.3;margin-bottom:15px;}
+.res-wrapper{background:#fff;color:#111;padding:36px 42px;max-width:920px;width:100%;margin:20px auto 0;text-align:left;}
+.res-wrapper a{color:#0000cc;font-weight:700;font-style:italic;text-decoration:underline;font-size:20px;}
+.res-wrapper h4{font-size:22px;font-weight:900;margin-bottom:14px;}
+.res-wrapper p{font-size:16px;line-height:1.65;margin-bottom:10px;}
+.hl{background:#90EE90;font-weight:700;}
+.hl2{background:#ffff00;font-weight:700;}
+.ps-guarantee{font-size:22px;font-weight:700;max-width:840px;text-align:center;margin-top:28px;line-height:1.6;}
+.track-item{font-size:22px;line-height:1.6;max-width:820px;text-align:left;margin-bottom:30px;display:flex;gap:16px;align-items:flex-start;}
+.gem{font-size:28px;flex-shrink:0;}
+.result-stat-box{background:#0d1a0d;border:2px solid #66ff66;border-radius:8px;padding:40px;max-width:900px;width:100%;margin:20px auto;text-align:left;}
+.result-stat-box h4{font-size:24px;font-weight:900;color:#66ff66;margin-bottom:20px;text-transform:uppercase;}
+.stat-row{display:flex;gap:30px;flex-wrap:wrap;margin-bottom:20px;}
+.stat-item{flex:1;min-width:160px;}
+.stat-item .num{font-size:42px;font-weight:900;color:#66ff66;line-height:1;}
+.stat-item .label{font-size:14px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-top:6px;}
+.result-text{font-size:18px;line-height:1.65;color:#ccc;}
+.sum-bullet{list-style:none;text-align:left;max-width:820px;margin:0 auto 25px;}
+.sum-bullet li{font-size:22px;margin-bottom:18px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+.sum-dot{color:#66ff66;font-weight:900;font-size:22px;flex-shrink:0;}
+.cta-box{text-align:left;max-width:860px;font-size:21px;line-height:1.8;}
+.cta-box p{margin-bottom:22px;}
+.not-coaching{font-size:56px;font-weight:900;text-transform:uppercase;margin-bottom:40px;}
+.fb-link{color:#66ff66;text-decoration:underline;}
+.product-box{background:#0d1a2a;border:2px solid #66ff66;border-radius:10px;padding:45px;max-width:900px;width:100%;margin:30px auto;text-align:left;}
+.product-box h3{font-size:28px;font-weight:900;color:#66ff66;margin-bottom:20px;text-transform:uppercase;}
+.product-box p{font-size:20px;line-height:1.75;margin-bottom:18px;}
+.product-box ul{padding-left:24px;}
+.product-box ul li{font-size:20px;margin-bottom:12px;line-height:1.5;list-style:disc;color:#ddd;}
+@media(max-width:768px){
+  .hero-title{font-size:38px;}
+  .sec-title{font-size:54px;}
+  .check-list li{font-size:20px;}
+  .fw-title{font-size:26px;}
+  .big-head{font-size:28px;}
+}
+@media print{
+  @page{margin:12mm 15mm;}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+  html,body{height:auto !important;overflow:visible !important;background:#0a0a14 !important;}
+  .slide{
+    display:block !important;
+    min-height:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    padding:28px 36px !important;
+    border-bottom:2px solid #222 !important;
+    page-break-after:auto !important;
+    page-break-inside:auto !important;
+    overflow:visible !important;
+    text-align:center !important;
+  }
+  .slide.case-slide{
+    text-align:left !important;
+    padding:0 !important;
+    page-break-inside:avoid !important;
+  }
+  .cs-header{padding:20px 24px !important;page-break-after:avoid !important;}
+  .cs-img{max-height:580px;object-fit:contain;page-break-before:avoid !important;display:block !important;}
+  .resource-guide{display:block !important;}
+  .sgd{display:block !important;}
+  .toggle-hint{display:none !important;}
+  .res-toggle-link{display:block !important;margin-bottom:8px !important;}
+  .step-impl-btn{display:block !important;margin-bottom:8px !important;}
+  a{color:inherit;}
+  .res-toggle-link{color:#0000cc !important;}
+  .step-impl-btn{color:#66ff66 !important;}
+  .step-link-row{border-bottom:1px solid #1e1e2e !important;padding-bottom:14px !important;margin-bottom:14px !important;}
+  .for-slide{page-break-inside:avoid !important;}
+  .for-slide .sec-title{font-size:52px !important;margin-bottom:10px !important;}
+  .for-slide .arrow-down{font-size:42px !important;margin:4px 0 14px !important;}
+  .for-slide .check-list li{font-size:17px !important;margin-bottom:10px !important;line-height:1.35 !important;}
+  .for-slide .ck{font-size:17px !important;}
+}
+.res-toggle-link{cursor:pointer;color:#0000cc;font-weight:700;font-style:italic;text-decoration:underline;font-size:20px;display:block;margin-bottom:4px;background:none;border:none;padding:0;text-align:left;}
+.res-toggle-link:hover{color:#000055;}
+.toggle-hint{font-size:12px;color:#666;margin-bottom:16px;font-style:normal;}
+.resource-guide{display:none;border-top:2px solid #ccc;margin-top:22px;padding-top:22px;}
+.resource-guide.open{display:block;}
+.guide-intro{font-size:15px;line-height:1.75;color:#333;margin-bottom:20px;background:#f0f7ff;padding:12px 16px;border-left:4px solid #0000cc;}
+.guide-uc{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid #e0e0e0;}
+.guide-uc:last-child{border-bottom:none;margin-bottom:0;}
+.guide-uc h5{font-size:15px;font-weight:900;color:#000;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.guide-uc .uc-tools{font-size:13px;color:#555;margin-bottom:10px;font-style:italic;}
+.guide-uc ol{padding-left:20px;margin:0 0 10px;}
+.guide-uc ol li{font-size:13.5px;line-height:1.7;margin-bottom:5px;color:#222;}
+.guide-uc .uc-result{font-size:13px;font-weight:700;color:#005500;background:#e6ffe6;padding:7px 12px;border-radius:4px;display:block;}
+.guide-section-title{font-size:17px;font-weight:900;color:#000;margin:22px 0 14px;text-transform:uppercase;border-bottom:2px solid #000;padding-bottom:6px;}
+.asset-cat{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid #e0e0e0;}
+.asset-cat:last-child{border-bottom:none;}
+.asset-cat h6{font-size:14px;font-weight:900;color:#000;margin-bottom:10px;text-transform:uppercase;}
+.asset-cat p{font-size:13.5px;color:#333;line-height:1.65;margin-bottom:8px;}
+.asset-tpl{background:#f5f5f5;border-left:3px solid #0000cc;padding:12px 14px;margin:8px 0 14px;font-size:13px;line-height:1.75;color:#111;font-family:Georgia,serif;white-space:pre-wrap;}
+.step-guide{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e0e0e0;}
+.step-guide:last-child{border-bottom:none;}
+.step-guide h5{font-size:14px;font-weight:900;color:#000;margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px;}
+.step-guide ol{padding-left:20px;}
+.step-guide ol li{font-size:13.5px;line-height:1.7;margin-bottom:6px;color:#222;}
+.step-guide .tools-line{font-size:13px;color:#555;font-style:italic;background:#fff9e6;padding:8px 12px;margin-bottom:10px;border-left:3px solid #cc9900;}
+.step-link-row{text-align:left;max-width:860px;width:100%;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid #1e1e2e;}
+.step-link-row:last-child{border-bottom:none;margin-bottom:0;}
+.step-link-top{display:flex;align-items:flex-start;gap:18px;}
+.step-link-icon{color:#66ff66;font-size:28px;flex-shrink:0;margin-top:2px;}
+.step-link-text{flex:1;}
+.step-link-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.45;}
+.step-impl-btn{cursor:pointer;color:#66ff66;font-weight:700;font-style:italic;text-decoration:underline;font-size:17px;background:none;border:none;padding:0;text-align:left;display:block;letter-spacing:.2px;}
+.step-impl-btn:hover{color:#aaff99;}
+.sgd{display:none;background:#0b160b;border:1px solid #1e3e1e;border-radius:6px;padding:22px 26px;margin-top:18px;}
+.sgd.open{display:block;}
+.sgd-intro{font-size:14.5px;line-height:1.75;color:#ccc;margin-bottom:16px;background:#0d1a0d;padding:10px 14px;border-left:3px solid #66ff66;}
+.sgd-phase{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #162816;}
+.sgd-phase:last-child{border-bottom:none;margin-bottom:0;}
+.sgd-phase h5{font-size:13px;font-weight:900;color:#66ff66;margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px;}
+.sgd-phase .sgd-tools{font-size:12.5px;color:#aaa;font-style:italic;background:#111;padding:6px 12px;margin-bottom:8px;border-left:2px solid #66ff66;display:block;}
+.sgd-phase ol{padding-left:18px;margin:0;}
+.sgd-phase ol li{font-size:13.5px;line-height:1.7;margin-bottom:5px;color:#ddd;}
+.sgd-result{font-size:12.5px;font-weight:700;color:#66ff66;background:#091409;padding:6px 12px;border-radius:4px;display:block;margin-top:8px;}
+.sgd-tpl{background:#0a1a0a;border-left:3px solid #66ff66;padding:10px 14px;margin:8px 0 12px;font-size:13px;line-height:1.75;color:#ccc;font-family:Georgia,serif;white-space:pre-wrap;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ SLIDE 1: HERO ═══════════════════════════════════ -->
+<section class="slide">
+  <p class="top-note">INSIDE: PROVEN AI AUTOMATION SYSTEM THAT ELIMINATES MANUAL WORK, GROWS YOUR CUSTOMER BASE, AND SAVES YOUR BUSINESS THOUSANDS EVERY MONTH — 100% ON AUTOPILOT</p>
+  <h1 class="hero-title">
+    HELPING YOUR BUSINESS<br>
+    ATTRACT MORE CUSTOMERS<br>
+    AND SAVE $2,500 – $9,000<br>
+    EVERY SINGLE MONTH<br>
+    WITH MY 6 STEP<br>
+    AI AUTOMATION<br>
+    FRAMEWORK<br>
+    GUARANTEED<br>
+    OR WE DO NOT<br>
+    GET PAID
+  </h1>
+  <p class="here-how">HERE'S HOW...</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 2: FOR ═══════════════════════════════════ -->
+<section class="slide for-slide">
+  <h2 class="sec-title">FOR</h2>
+  <div class="arrow-down">↓</div>
+  <ul class="check-list">
+    <li><span class="ck">✔</span>Healthcare Clinics and Medical Centers That Want More Patients</li>
+    <li><span class="ck">✔</span>Ecommerce Stores and Online Brands That Want More Sales</li>
+    <li><span class="ck">✔</span>Schools, Academies and EdTech Platforms That Want More Students</li>
+    <li><span class="ck">✔</span>Any Business Drowning in Repetitive Manual Tasks and Losing Clients Because of It</li>
+    <li><span class="ck">✔</span>Anyone Who Wants to Run Their Business on AI Autopilot and Scale Without Hiring More Staff</li>
+    <li><span class="ck">✔</span>Entrepreneurs and Freelancers Who Want to Start or Grow an AI Automation Business and Earn $2,500 – $9,000 Per Month</li>
+    <li><span class="ck">✔</span>Businesses and Individuals Who Want to Build Their Own AI-Powered Product and Launch It as a Revenue-Generating Digital Business</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 3: CASE STUDY 1 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 1:</strong> AI-Powered WhatsApp Assistant — Turned a Business's Manual Customer Support into a 24/7 Automated Revenue Machine. The Business Started Recovering Missed Deals and Attracting New Customers Around the Clock, Adding $14,500 in Revenue in 6 Months Using AI Automation.</h3>
+  </div>
+  <img src="case study 1.jpeg" alt="Case Study 1 - AI WhatsApp Assistant" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 4: CASE STUDY 2 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 2:</strong> Post-Implementation Dashboard — The Same Business Now Has 45 Recovered Deals, 160+ Hours Saved Every Month, AI Responds in 15 Seconds, and Revenue Grew by +$14,500. Every New Customer Who Messages Gets an Instant Response — No Lead is Ever Lost Again.</h3>
+  </div>
+  <img src="case study 2.jpeg" alt="Case Study 2 - WhatsApp AI Dashboard" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 5: CASE STUDY 3 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 3:</strong> Smart Hiring AI System — An Education and HR Platform Automated Their Entire Recruitment Process. Monthly Hiring Cost Dropped from $4,000 to $1,500. Now They Process 10 Times More Applications, Hire Faster, and Can Handle a Much Larger Volume of Clients — Saving $2,500 Every Single Month on Complete Autopilot.</h3>
+  </div>
+  <img src="case study 3.jpeg" alt="Case Study 3 - Smart Hiring AI" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 6: CASE STUDY 4 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 4:</strong> Smart Hiring AI — Operational Dashboard Shows 1,248 Applications Processed, 312 Candidates Selected, 156 Interviews Automated 3 Times Faster, and Recruiter Workload Reduced by 70%. With More Capacity Freed Up, the Business Can Now Serve More Clients Without Adding a Single New Staff Member.</h3>
+  </div>
+  <img src="case study 4.jpeg" alt="Case Study 4 - Smart Hiring Dashboard" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 7: CASE STUDY 5 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 5:</strong> AI Knowledge Assistant (RAG System) — Turned Scattered Business Documents into a 24/7 Revenue-Generating AI. Monthly Revenue Grew from $5,000 to $12,500+. Lead Conversions Increased by 30% to 50% Because Every New Visitor Now Gets Instant, Accurate Answers — and That is a 150% Revenue Growth on Complete Autopilot.</h3>
+  </div>
+  <img src="case study 5.jpeg" alt="Case Study 5 - RAG Knowledge System" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 8: CASE STUDY 6 ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 6:</strong> AI Knowledge Assistant Live Dashboard — $14,800+/Month Revenue, 42% Higher Lead Conversions, 2.5 Second AI Response Time, and 30% to 50% More Leads Generated Every Single Month. More Leads Mean More Customers. More Customers Mean More Revenue. All on Autopilot.</h3>
+  </div>
+  <img src="case study 6.jpeg" alt="Case Study 6 - RAG Dashboard" class="cs-img">
+  <div style="background:#111;width:100%;padding:36px 24px;text-align:center;">
+    <p class="ps-block"><strong>P.S. If I have grabbed your attention,<br>allow me to explain the process...</strong></p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 13: CRACKING THE CODE ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="color:#fff;font-size:52px;font-weight:900;text-transform:uppercase;margin-bottom:15px;">CRACKING THE <span class="green">CODE</span></h2>
+  <p style="font-size:26px;font-weight:700;max-width:800px;margin-bottom:50px;line-height:1.5;">If Your Business is Wasting 40+ Hours Per Week on Manual Work and Missing Out on Customers Because of It — This is For <em>YOU...</em></p>
+  <ul class="check-list">
+    <li><span class="ck-gray">✔</span>You must follow all the steps without skipping any.</li>
+    <li><span class="ck-gray">✔</span>Commitment and consistent action is a must.</li>
+    <li><span class="ck-gray">✔</span>You must be ready to invest $50 to $100 per month in AI tool costs. (this is not my fees — this is for the tools that power the automation)</li>
+    <li><span class="ck-gray">✔</span>You commit to partner with us at 60/40 percentage. 40% of the savings and revenue generated through the AI system will be ours.</li>
+  </ul>
+  <p style="font-size:20px;max-width:800px;margin-top:40px;line-height:1.7;">We are not here to waste your time. We will help you automate your business, recover thousands in lost revenue, and grow your customer base — but only come if you fulfil the above criteria.</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 14: ARE YOU STRUGGLING? ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:52px;font-weight:900;text-transform:uppercase;margin-bottom:50px;">ARE YOU STRUGGLING TO?</h2>
+  <ul class="check-list">
+    <li><span class="ck-gray">✔</span>Attract and retain more customers when your team is too busy with manual tasks?</li>
+    <li><span class="ck-gray">✔</span>Respond to customer inquiries before they leave and go to your competitor?</li>
+    <li><span class="ck-gray">✔</span>Scale your client base without hiring 3 new staff members every time you grow?</li>
+    <li><span class="ck-gray">✔</span>Handle more students, patients, or orders without increasing your operational costs?</li>
+    <li><span class="ck-gray">✔</span>Recover leads and deals that are being lost because no one is available to respond?</li>
+    <li><span class="ck-gray">✔</span>Run your business 24/7 and serve international customers in different time zones?</li>
+    <li><span class="ck-gray">✔</span>Tired of losing customers to competitors who respond faster and operate smarter?</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 15: THIS IS FOR YOU ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:60px;font-weight:900;text-transform:uppercase;margin-bottom:40px;">THIS IS FOR YOU...</h2>
+  <ul class="bullet-list">
+    <li>If you want to attract 2 to 3 times more customers without adding a single new team member — because your AI system handles every inquiry, every follow-up, and every lead while you sleep...</li>
+    <li>Or you run a healthcare clinic and you are losing patients because your support team is overwhelmed, slow, and unavailable after business hours. An AI agent answers every patient query instantly, books appointments automatically, and sends reminders — so you never lose a patient again...</li>
+    <li>Or you run an ecommerce store drowning in repetitive customer questions, order tracking, and return requests — all of which a custom AI agent handles 24/7 on complete autopilot, freeing your team to focus on growing sales...</li>
+    <li>Or you run a school, academy, or EdTech platform and your teachers are buried in paper checking, parent communication, and admin work. An AI system handles all of that — faster and more accurately — so teachers can focus on teaching, and parents are so happy they refer more students...</li>
+    <li>Or you are frustrated because you know AI is the future but you have no idea how to implement it without a technical team or a massive budget...</li>
+    <li>Or you have tried hiring more staff to solve the problem but it just created more management overhead, higher salaries, and still the same bottlenecks — while your competitor is serving 3 times more customers with the same team size using AI...</li>
+  </ul>
+  <p class="para" style="text-align:center;margin-top:20px;">If you are looking for the fastest, no-nonsense, most cost-effective way to automate your business using multiple AI agents, attract more customers, and save $2,500 to $9,000 every single month...</p>
+  <p class="para" style="text-align:center;"><strong>This Document will show you how to do it.</strong></p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 16: PS TEASER ═══════════════════════════════════ -->
+<section class="slide">
+  <p class="ps-block" style="font-size:28px;">
+    <strong>P.S.</strong> On the next slide, we are going to give you a <strong>6 Step Framework</strong> on how <strong>YOU</strong> can implement this AI Automation system for your Healthcare, Ecommerce or Education Business — on a <strong>pure percentage basis</strong>. It will help you attract more customers, save 100+ hours per month, and add <strong class="green">$2,500 to $9,000 to your bottom line</strong> every single month!
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 17: FRAMEWORK STEPS 1-3 ═══════════════════════════════════ -->
+<section class="slide">
+  <p style="font-size:13px;letter-spacing:2px;color:#aaa;margin-bottom:20px;text-transform:uppercase;">Video Guide Link On How To Implement The 6 Step AI Automation Framework!</p>
+  <h2 class="fw-title">6 STEP AI AUTOMATION FRAMEWORK TO ATTRACT MORE CUSTOMERS, SAVE <span class="green">100+ HOURS/MONTH</span>, AND ADD $2,500 – $9,000 TO YOUR BOTTOM LINE EVERY SINGLE MONTH!</h2>
+  <div class="step-block">
+    <p><span class="step-label">STEP 1 —</span> We identify the single most painful, repetitive process in your business that is costing you the most time, money, and customers. We then design a custom AI-powered solution specifically for that problem — one that is so effective your team cannot imagine going back to doing it manually.</p>
+  </div>
+  <div class="step-block">
+    <p><span class="step-label">STEP 2 —</span> We build your AI authority assets in less than 30 days: case studies, live demo videos, before and after dashboards, and sales documents like this one. This brings ideal clients and customers to you — they come to you asking for AI implementation, not the other way around.</p>
+  </div>
+  <div class="step-block">
+    <p><span class="step-label">STEP 3 —</span> We deploy a fully automated multi-agent AI system tailored to your niche. For <strong>Healthcare</strong>: patient scheduling, appointment reminders, and 24/7 query handling — so no patient ever goes unanswered and more patients are attracted through fast service. For <strong>Ecommerce</strong>: customer support, order tracking, and lead recovery — so more visitors convert to paying customers. For <strong>Education</strong>: auto-grading, parent communication, and student query handling — so more students enroll and stay enrolled.</p>
+  </div>
+  <p class="ps-block" style="font-size:20px;text-decoration:underline;">P.S. Continuing steps 4, 5, 6 on next slide...</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 18: FRAMEWORK STEPS 4-6 ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="fw-title">6 STEP AI AUTOMATION FRAMEWORK TO ATTRACT MORE CUSTOMERS, SAVE <span class="green">100+ HOURS/MONTH</span>, AND ADD $2,500 – $9,000 TO YOUR BOTTOM LINE EVERY SINGLE MONTH!</h2>
+  <div class="step-block">
+    <p><span class="step-label">STEP 4 —</span> We create a LinkedIn and WhatsApp AI Client Acquisition System. This consists of 6 elements: Irresistible AI demo lead magnets, targeted outreach to decision-makers, prospect qualification, sending live AI demo documents to prospects, booking 2 sessions of 30 minutes each on WhatsApp or Zoom, and follow-ups. This is where businesses and clients begin requesting your AI automation services — and they are willing to pay $1,500 to $8,000 per project to have it built for them.</p>
+  </div>
+  <div class="step-block">
+    <p><span class="step-label">STEP 5 —</span> We give prospects free implementation previews and mini-automation demos so they can see the AI working live before committing. By doing this, we win their complete trust instantly — and they request to have the full system built for them immediately. This approach alone increases the conversion of interested leads to paying clients significantly.</p>
+  </div>
+  <div class="step-block">
+    <p><span class="step-label">STEP 6 —</span> We do intentful follow-ups — not reckless follow-ups. We humanize every conversation. We send valuable AI insights, niche-specific case studies, and live automation examples to show prospects exactly how many more customers they will gain and how much they will save. 7 to 10 extra deals every 4 months can be won easily if this step is done correctly — guaranteed.</p>
+  </div>
+  <p class="ps-block" style="font-size:20px;text-decoration:underline;">P.S. There is something shocking below...</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 18B: 6 STEP IMPLEMENTATION LINKS ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:36px;font-weight:900;max-width:860px;line-height:1.3;margin-bottom:52px;text-align:center;">
+    We Are Giving You Our Complete <span class="green">6 Step AI Automation Framework</span> With Full Step-by-Step Implementation Guides For FREE — In case you want to implement it yourself and attract more customers, save 100+ hours every month, and add $2,500 – $9,000 to your bottom line...
+  </h2>
+
+  <div style="width:100%;max-width:880px;">
+
+    <!-- STEP 1 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 1 — Identify Your #1 Automation Opportunity and Design the AI Solution</div>
+          <a class="step-impl-btn" href="#step1g" onclick="toggleGuide('step1g');return false;">→ Click to open Step 1 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step1g">
+        <p class="sgd-intro">Step 1 is where everything begins. Most businesses jump straight to building without knowing what to build. This guide shows you exactly how to find your best automation opportunity and design the solution before touching a single tool.</p>
+        <div class="sgd-phase">
+          <h5>Phase 1: Business Process Audit — List Every Manual Task (1–2 Hours)</h5>
+          <ol>
+            <li>Open a Google Sheet. Create 5 columns: Task Name | Who Does It | Time Per Week (hours) | What Goes Wrong Manually | Customer Impact</li>
+            <li>Walk through a typical week in your business and list every task your team does repeatedly — answering the same questions, sending reminders, checking orders, updating spreadsheets, booking appointments, sending reports</li>
+            <li>For each task: fill in how many hours per week it takes and what goes wrong when it is done manually (e.g. "slow response means customers go elsewhere" or "human error in data entry causes wrong orders")</li>
+            <li>Also list the customer-facing impact: Does a slow task make customers wait? Does a missed task mean a lost sale? Does an error hurt the customer experience?</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Phase 2: Calculate the True Cost of Each Task</h5>
+          <ol>
+            <li>For each task: multiply hours per week × 4 (weeks) × hourly cost of the person doing it. Example: If a customer support task takes 20 hours/week and the team member earns $5/hour, the monthly cost is $400.</li>
+            <li>Add the revenue cost: estimate how many customers are lost each month because of this task being done slowly or manually. Multiply by your average customer value. Example: 10 missed leads × $500 average order = $5,000 lost monthly.</li>
+            <li>Your true monthly cost = staff cost + lost revenue. This is what AI automation saves you.</li>
+            <li>Write this number in the last column of your Google Sheet. This becomes your ROI proof when the automation is live.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Phase 3: Rank and Select Your First Automation</h5>
+          <ol>
+            <li>Score each task on 3 criteria (1–5 each): (1) How much time does it waste? (2) How much revenue does it cost? (3) How repetitive/predictable is it? (Predictable tasks are easiest to automate.)</li>
+            <li>Add the 3 scores. The task with the highest total score is your first automation target.</li>
+            <li>Rule of thumb — the best first automations are: customer WhatsApp/email responses, appointment booking, order tracking, lead follow-ups, or data entry between two systems</li>
+            <li>Do not try to automate everything at once. One automation done well delivers more results than five done poorly.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Phase 4: Write Your AI Solution Brief (30 Minutes)</h5>
+          <ol>
+            <li>Write a one-page document answering: What is the exact problem? (be very specific) Who triggers it? (e.g. "customer sends a WhatsApp message") What should the AI do? (e.g. "read the message, understand intent, respond with correct information or book appointment") What should the output be? (e.g. "WhatsApp reply sent within 15 seconds")</li>
+            <li>List the systems involved: Where does the input come from? (WhatsApp, email, form) Where does the output go? (WhatsApp reply, Google Calendar, spreadsheet)</li>
+            <li>List what the AI needs to know: Your services, prices, opening hours, booking process, FAQ answers</li>
+            <li>This brief is what you hand to a developer — or follow yourself using Make.com and Claude API (see Step 3 guide for exact build instructions)</li>
+          </ol>
+          <span class="sgd-result">Output of Step 1: A clear brief document that specifies exactly what to build — so there is no guessing when you start building in Step 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 2 — Build Your AI Authority Assets in 30 Days</div>
+          <a class="step-impl-btn" href="#step2g" onclick="toggleGuide('step2g');return false;">→ Click to open Step 2 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step2g">
+        <p class="sgd-intro">Authority assets are what make clients and customers come to you — instead of you chasing them. This guide shows you how to create case studies, demo videos, dashboards, and sales documents like this one in under 30 days.</p>
+        <div class="sgd-phase">
+          <h5>Asset 1: Create Your First Case Study Document</h5>
+          <ol>
+            <li>Use your own business results OR your first client's results. Even a small result works — e.g. "We saved 20 hours per week on customer support using a WhatsApp AI we built in 7 days."</li>
+            <li>Structure your case study: (1) Client background — industry, size, problem. (2) What was happening before the AI — be specific with numbers. (3) What we built — name the system, describe it simply. (4) Results after X days — always use numbers. (5) Client quote if available.</li>
+            <li>Write it in a Google Doc. Make it shareable (view-only link). This link is what you share in outreach messages and LinkedIn posts.</li>
+            <li>Design tip: use bold for numbers, highlight guarantees in green, keep paragraphs short (3 lines max). Anyone should be able to skim it in 2 minutes and understand the result.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Asset 2: Record a 60–90 Second Demo Video</h5>
+          <ol>
+            <li>Use Loom (free at loom.com) to record your screen + face simultaneously</li>
+            <li>Script: Second 0–5: Show the problem (customer message with no reply for hours). Second 5–30: Show the AI responding in real time — play back a WhatsApp conversation or screen recording of the AI at work. Second 30–55: Show the result (dashboard numbers, revenue, hours saved). Second 55–90: Single CTA — "If you want this for your business, send me a message."</li>
+            <li>Keep it raw and real — do not over-edit. Prospects trust unpolished videos more than corporate ones.</li>
+            <li>Upload to Loom → copy the share link → add this link to every outreach message, LinkedIn post, and follow-up</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Asset 3: Build a Before/After Dashboard</h5>
+          <ol>
+            <li>Use Google Sheets or Notion to create a simple 2-column comparison: BEFORE (manual process stats) vs AFTER (AI automation stats)</li>
+            <li>Track and display: response time, hours saved per month, leads recovered, revenue added, error rate, customer satisfaction score</li>
+            <li>Take a screenshot of this dashboard after 30 days of running your AI — this becomes one of your most shared assets</li>
+            <li>Example: "Before: 6-hour response time, 20 missed leads/week, $0 recovered. After: 15-second response, 0 missed leads, $2,400 recovered in month 1."</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Asset 4: Create Your Sales Document (Like This One)</h5>
+          <ol>
+            <li>Your sales letter is your single most powerful asset — one document that educates, proves, and converts without you needing to be present</li>
+            <li>Structure: (1) Bold headline with your specific result promise. (2) Who it is for. (3) 3–6 case studies with real numbers. (4) Social proof summary. (5) Cracking the code section — what they need to qualify. (6) Are you struggling section. (7) This is for you section. (8) P.S. teaser for the framework. (9) The 6-step framework with links. (10) Track record. (11) Results proof. (12) Summary and next steps. (13) CTA.</li>
+            <li>Host on Google Docs (shareable link) or as an HTML file (like this document). Share the link in every outreach message — it does the selling for you.</li>
+            <li>Update it every 60 days with new case study numbers</li>
+          </ol>
+          <span class="sgd-result">Output of Step 2: A case study doc + demo video + before/after dashboard + sales letter — these 4 assets will make prospects reach out to you before you reach out to them</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 3 — Deploy Your Multi-Agent AI System for Healthcare, Ecommerce, or Education</div>
+          <a class="step-impl-btn" href="#step3g" onclick="toggleGuide('step3g');return false;">→ Click to open Step 3 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step3g">
+        <p class="sgd-intro">Step 3 is where you actually build and launch the AI system. Below are the exact stacks for the 3 niches — Healthcare, Ecommerce, and Education. Follow the stack for your niche. Each stack includes the tools, connections, and what the AI must do.</p>
+        <div class="sgd-phase">
+          <h5>Healthcare Niche — AI Stack to Deploy</h5>
+          <span class="sgd-tools">Tools: WhatsApp Business API + Make.com + Claude API + Google Calendar + Google Sheets</span>
+          <ol>
+            <li>AI WhatsApp Assistant: Handles all patient queries 24/7 — symptoms questions, service availability, doctor info, payment options. Responds in the patient's language (Urdu or English) in under 15 seconds. (Full build guide: see the WhatsApp AI System guide in the free resources below)</li>
+            <li>AI Appointment Booking: Patient says preferred time → AI checks Google Calendar → books slot → sends confirmation + 24-hour reminder. Zero manual booking required.</li>
+            <li>AI Patient Follow-Up: 48 hours after appointment → AI sends WhatsApp message asking for feedback + review link. If patient gives 5 stars → AI requests a short testimonial. If 1–3 stars → immediate alert to clinic owner.</li>
+            <li>AI Lead Recovery: Any patient who enquired but did not book → AI sends 3-message sequence over 7 days to re-engage → passes to human only if patient expresses strong interest</li>
+            <li>Connect these 4 flows in Make.com as separate scenarios — each triggered by a different event (incoming message, form submission, calendar event, sheet update)</li>
+          </ol>
+          <span class="sgd-result">Healthcare Result: 100% patient response rate · 30% higher appointment show-up rate · 40% more new patient bookings · 160+ hours saved monthly</span>
+        </div>
+        <div class="sgd-phase">
+          <h5>Ecommerce Niche — AI Stack to Deploy</h5>
+          <span class="sgd-tools">Tools: Shopify/WooCommerce API + Make.com + Claude API + WhatsApp Business API + Gmail</span>
+          <ol>
+            <li>AI Customer Support: Customer sends WhatsApp or email question about product, size, delivery, return policy → AI answers instantly from your store's FAQ and product info. Never leaves a customer waiting.</li>
+            <li>AI Order Tracking: Customer sends order number → AI fetches status from Shopify/WooCommerce → sends clear reply with tracking link and estimated delivery. Zero staff involvement.</li>
+            <li>AI Abandoned Cart Recovery: When customer adds to cart but does not checkout (use Shopify webhook) → AI sends WhatsApp message 2 hours later → if no response, sends follow-up at 24 hours with a small incentive (discount code)</li>
+            <li>AI Review Generation: 3 days after delivery confirmed → AI sends personalized WhatsApp thank-you + Google Review link. This alone can 4x your review count in 60 days.</li>
+            <li>Escalation rule in ALL flows: if customer uses words like "refund", "damaged", "angry" → immediately alert human team + tell customer team will respond in 2 hours</li>
+          </ol>
+          <span class="sgd-result">Ecommerce Result: 80% reduction in support tickets · 20–35% cart recovery rate · 4x more Google reviews · Customers served 24/7 without extra staff</span>
+        </div>
+        <div class="sgd-phase">
+          <h5>Education Niche — AI Stack to Deploy</h5>
+          <span class="sgd-tools">Tools: Google Drive + Make.com + Claude API (Vision) + WhatsApp Business API + Google Sheets + Gmail</span>
+          <ol>
+            <li>AI Answer Sheet Checking: Students photograph and upload answer sheets to Google Drive → AI reads via Claude Vision → checks against answer key → assigns marks per question → saves to Google Sheets → sends results to parents via WhatsApp in minutes (not days)</li>
+            <li>AI Parent Communication: After each exam, event, or update → AI generates a unique, personalized WhatsApp message per parent using student's name, class, result, strengths, and areas to improve — not a generic bulk message</li>
+            <li>AI Student Query Handler: Students WhatsApp any question about schedule, homework, exam dates, fee payment → AI answers from school knowledge base instantly, 24/7</li>
+            <li>AI Enrollment Follow-Up: Parent enquires about admission → AI sends welcome message → shares course details and fee structure → follows up on Day 3 and Day 7 if not enrolled → books a meeting with admission officer if interested</li>
+          </ol>
+          <span class="sgd-result">Education Result: 90% reduction in teacher admin time · More students enrolled because parents are impressed by fast, personalized communication · 200% revenue growth possible within 6 months (see NeuralGrade case study)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 4 — LinkedIn and WhatsApp AI Client Acquisition System (All 6 Elements)</div>
+          <a class="step-impl-btn" href="#step4g" onclick="toggleGuide('step4g');return false;">→ Click to open Step 4 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step4g">
+        <p class="sgd-intro">Step 4 is how you turn the AI systems you built in Step 3 into a client-acquisition machine. These 6 elements work together to bring decision-makers to you — and make them ask you to build for them.</p>
+        <div class="sgd-phase">
+          <h5>Element 1: Create Your Irresistible AI Demo Lead Magnet</h5>
+          <ol>
+            <li>Your lead magnet is a free document showing real AI results for a specific niche — exactly like this sales letter</li>
+            <li>Make one lead magnet per target niche (healthcare, ecommerce, or education). Title example: "How Healthcare Clinics Are Recovering Missed Patients 24/7 Using AI — Real Results and Step-by-Step System"</li>
+            <li>Host on Google Drive as view-only shareable link — anyone can open and read without downloading</li>
+            <li>End with CTA: "If you want this system built for your business on a percentage basis, send me a message with the word AUTOMATE"</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Element 2: Targeted Outreach to Decision-Makers</h5>
+          <ol>
+            <li>LinkedIn search filters: People → 2nd degree connections → Industry: Healthcare/Retail/Education → Title: CEO, Founder, Operations Manager, Practice Manager, Clinic Owner → Company size: 10–200 employees → Your city first</li>
+            <li>Send 20–30 connection requests per day with a personalized note (never pitch in the request): "Hi [Name], I work specifically with [their industry] businesses on AI automation. Your work at [company] caught my attention — would love to connect."</li>
+            <li>Your LinkedIn profile must be complete before you start: professional photo, clear headline (e.g. "AI Automation for Healthcare and Ecommerce — We Only Get Paid on Results"), About section, 3+ posts published</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Element 3: Prospect Qualification</h5>
+          <ol>
+            <li>Within 24–48 hours of connection accepted: send qualifying question — "Quick question — how does your team currently handle [specific manual task in their niche]?"</li>
+            <li>Qualified: they say it is manual, slow, or a problem → move to Element 4. Unqualified: they say they have a perfect system → thank them and move on</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Element 4: Send the AI Demo Document</h5>
+          <ol>
+            <li>After qualifying: "Based on what you shared, I thought this might be useful. Here is a guide showing how a similar [industry] business automated [their pain point] and the exact results: [Google Drive link]. No strings — just read it."</li>
+            <li>Do not follow up for 48 hours. Let the document do the selling.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Element 5: Book 2 Sessions of 30 Minutes (WhatsApp or Zoom)</h5>
+          <ol>
+            <li>After 48 hours: "Did you get a chance to look at the document? The best next step is a quick 30-minute WhatsApp call — I will show you the live AI demo for your specific business. When works for you — Tuesday or Thursday morning?"</li>
+            <li>Call 1: Listen to their problem → show relevant live demo → explain how you would build it for them. Call 2 (within 3 days): Go through specifics, timeline, percentage arrangement, and confirm start.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Element 6: Follow-Ups (Not Reckless — Intentful)</h5>
+          <ol>
+            <li>Day 3: Send a relevant case study. Day 7: Send a 60-second WhatsApp voice note about their specific situation. Day 14: Share a new result from a similar client. Day 30: Final direct ask — one open spot this month on percentage basis.</li>
+            <li>Track all prospects in Google Sheet: Name | Company | WhatsApp | Status | Last Contact | Next Follow-Up Date</li>
+          </ol>
+          <span class="sgd-result">Output of Step 4: A steady flow of qualified prospects booking 30-minute calls with you — businesses willing to pay $1,500–$8,000 for AI automation on a percentage basis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 5 — Create Free Implementation Previews and Mini-Automation Demos</div>
+          <a class="step-impl-btn" href="#step5g" onclick="toggleGuide('step5g');return false;">→ Click to open Step 5 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step5g">
+        <p class="sgd-intro">Step 5 is the single most powerful trust-builder in this entire framework. When prospects see the AI working live — specifically for their business — the sale closes itself. This guide shows you exactly what to build and how to deliver it.</p>
+        <div class="sgd-phase">
+          <h5>What Makes a Good Free Demo</h5>
+          <ol>
+            <li>It must be specific to their niche — a healthcare clinic owner must see AI handling a patient query, not a generic chatbot</li>
+            <li>It must show a real result — not a concept. Show the AI actually responding, actually booking, actually generating the output</li>
+            <li>It must be short — the ideal demo is 3–5 minutes. If longer, prospects lose attention and the impact drops</li>
+            <li>It must feel like their business — use their industry language, reference their type of customer, use their likely questions</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>How to Build a Mini-Demo in Under 2 Hours</h5>
+          <ol>
+            <li>Choose one specific use case from their niche (e.g. for a healthcare clinic: AI WhatsApp patient query handler)</li>
+            <li>In Make.com: Build a simplified version of the full system — just the core loop: incoming message → AI response → reply. This takes 45–60 minutes with the WhatsApp system you built in Step 3.</li>
+            <li>Create a test WhatsApp number using Twilio ($1/month) → configure it with a system prompt specific to their business type → send 10 test messages covering their most common customer queries</li>
+            <li>Record the demo using Loom: show the customer message arriving → show the AI responding in real time → show the 15-second response time → show the conversation flow</li>
+            <li>Add a dashboard screenshot showing what the system tracks: total conversations, response rate, leads captured</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>How to Deliver the Demo (3 Options Ranked by Conversion Rate)</h5>
+          <ol>
+            <li>Option 1 — Live on WhatsApp Call (highest conversion): During the 30-minute call, share your screen and show the live AI responding to sample messages in real time. Ask the prospect to dictate a customer question — then show the AI answer it live. This is extremely powerful and almost always closes the deal.</li>
+            <li>Option 2 — Pre-recorded Loom video (medium conversion): Record the demo as a 3-minute Loom video → send the link with this message: "I built a quick live demo of how your [business type]'s AI would work. Here is the recording — it shows exactly what your customers would experience: [Loom link]"</li>
+            <li>Option 3 — Google Doc with screenshots (lower but still effective): Create a Google Doc showing step-by-step screenshots of the AI in action with captions explaining each step → share as view-only link</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>How to Close After the Demo</h5>
+          <ol>
+            <li>After showing the demo, ask one question: "Based on what you just saw — does this look like something that would solve your problem?"</li>
+            <li>If yes: "Great. We work on a percentage basis — we build the full system for you at no upfront cost. You only share [40%] of the savings or new revenue the AI generates. Want to move forward?"</li>
+            <li>If maybe: "Completely fine. What part were you unsure about? Let me address that specifically." — Then address the one objection, not all objections. Then ask again: "With that addressed — does this make sense for your business?"</li>
+            <li>If no: "No problem at all. Out of curiosity — what would need to be different for this to make sense?" — This tells you exactly what to improve for next time.</li>
+          </ol>
+          <span class="sgd-result">Conversion rate with live demo: 60–70% of qualified prospects who see a live demo become clients. Without a demo: 10–15%. The demo is the single highest-ROI action in this entire framework.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step-link-row">
+      <div class="step-link-top">
+        <span class="step-link-icon">✔</span>
+        <div class="step-link-text">
+          <div class="step-link-title">Here is the complete guide for Step 6 — Intentful Follow-Up System to Win 7–10 Extra Deals Every 4 Months</div>
+          <a class="step-impl-btn" href="#step6g" onclick="toggleGuide('step6g');return false;">→ Click to open Step 6 Implementation Guide ↓</a>
+        </div>
+      </div>
+      <div class="sgd" id="step6g">
+        <p class="sgd-intro">Most deals are not lost because prospects said no — they are lost because no one followed up properly. This system wins 7–10 extra deals every 4 months from prospects who said "not now." The difference between reckless follow-up (which annoys) and intentful follow-up (which closes) is what you send and why.</p>
+        <div class="sgd-phase">
+          <h5>Setup: Track All Prospects in One Place</h5>
+          <ol>
+            <li>Create a Google Sheet with these columns: Name | Company | Industry | WhatsApp Number | LinkedIn | Status | Last Contact Date | What Was Sent Last | Next Action | Next Action Date</li>
+            <li>Status options: New → Contacted → Demo Sent → Call Booked → Thinking → Dead (no response × 3) → Closed Won → Closed Lost</li>
+            <li>Every Monday morning: open this sheet, filter for everyone whose "Next Action Date" is today or past → take action on each one</li>
+            <li>Never rely on memory for follow-ups — the sheet is your system</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>The Complete Follow-Up Sequence — What to Send and When</h5>
+          <ol>
+            <li><strong>Day 3 after demo or last contact — The Valuable Insight:</strong> Send a short message with one specific insight or result that is directly relevant to their business. No sales pitch. Example: "Saw something this week I thought you'd find interesting — a [their industry] business similar to yours recovered [X] missed [patients/customers/students] in their first month using the same system I showed you. Thought of you immediately."</li>
+            <li><strong>Day 7 — The Voice Note (Most Effective Follow-Up):</strong> Record a 45–60 second WhatsApp voice message. Say their name, reference your conversation, share one specific thought about their situation, end with an easy question. Voice notes get 3–5x more responses than text messages because almost no one sends them — it immediately stands out.</li>
+            <li><strong>Day 14 — The New Result:</strong> Share a fresh result from a recent client in their niche. "Just wrapped up month 1 with a [similar business] — they hit [specific result]. Reminded me of our conversation about [their specific problem]. Are you still thinking it through?"</li>
+            <li><strong>Day 30 — The Final Direct Ask:</strong> "I have one open spot this month for a [their industry] business on a percentage basis. Is the timing better now? I would love to work with you if you are ready — and if not, completely no hard feelings." — This is your one direct ask. Make it clear and genuine.</li>
+          </ol>
+        </div>
+        <div class="sgd-phase">
+          <h5>Message Templates for Each Stage</h5>
+          <div class="sgd-tpl">DAY 3 — Valuable Insight Template:
+"Hey [Name], hope you're well. Quick share — [one sentence result from a similar business]. Thought of your situation immediately after seeing it. No rush on anything — just wanted to keep you updated on what's happening in the [industry] space."</div>
+          <div class="sgd-tpl">DAY 7 — Voice Note Script (Record this, do not text):
+"Hey [Name], [your name] here. Just been thinking about the conversation we had and your situation with [specific pain point they mentioned]. I actually came across something this week that made me think — [one short specific insight]. Wanted to share it with you. How are things going on your end — is the [problem] still a challenge for you?"</div>
+          <div class="sgd-tpl">DAY 14 — New Result Template:
+"Hey [Name] — quick update. [Client type] we've been working with just hit [specific result] in their first [X] days. [One sentence connecting it to their situation]. Still thinking things through on your end?"</div>
+          <div class="sgd-tpl">DAY 30 — Final Ask Template:
+"Hey [Name], I'll keep this short — I have one open spot this month for a [their industry] business on a pure percentage basis. Zero upfront cost. You only share results when the AI delivers them. Is the timing better now? If yes, let's talk this week. If not, completely fine — I'll reach back whenever it makes sense for you."</div>
+        </div>
+        <div class="sgd-phase">
+          <h5>What to Do After Day 30 (If Still No Response)</h5>
+          <ol>
+            <li>Send one final message: "Hey [Name] — I'll stop reaching out after this. Genuinely do not want to be annoying. If things change and you want to explore AI automation for your business, you know where to find me. Wishing you all the best." — Then stop. Do not contact again.</li>
+            <li>Move their row in your Google Sheet to "Dead" status — but do NOT delete them</li>
+            <li>Every 90 days: review your Dead list. Send one "checking in" message to each. No pitch. Just: "Hey [Name], [your name] here. It's been a few months — how are things going with [business name]? Hope well." — You will be surprised how many respond and re-engage 3–6 months later on their own initiative.</li>
+          </ol>
+          <span class="sgd-result">Output of Step 6: 7–10 extra closed deals every 4 months from prospects who previously said "not now" — these are the easiest clients to close because they already trust you</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 19: FREE RESOURCE 1 ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="res-head">The best part is we have already created a customized AI Automation Blueprint for you.<br><strong>READY TO IMPLEMENT...</strong></h2>
+  <div class="res-wrapper">
+    <a class="res-toggle-link" href="#guide1" onclick="toggleGuide('guide1');return false;">&#9658; Click Here — Your Free '10' AI Automation Use Cases: Complete Step-by-Step Implementation Guide</a>
+    <p class="toggle-hint">(Click the link above to open the full guide — read it and implement it yourself)</p>
+    <h4>Your Free '10' AI Automation Use Cases To Attract More Customers and Get 3 New Clients...</h4>
+    <p>We have prepared 10 Proven AI Automation Use Cases for you, no matter if you run a healthcare clinic, ecommerce store, or education platform. Each use case shows exactly how AI will help your business attract more customers, reduce manual workload, and increase monthly revenue.</p>
+    <p><span class="hl">We Guarantee if you implement even one of these use cases, it will instantly increase the number of customers you can serve, reduce your operational costs, and make you the most efficient business in your niche within 30 days.</span></p>
+    <p>If you want us to help you implement this same AI Automation Blueprint so you can attract more customers and get 3 new clients in the next 30 days, <span class="hl2">(you only pay on results basis)</span> send us a message and we will have a brief chat.</p>
+
+    <div class="resource-guide" id="guide1">
+      <p class="guide-intro">Below are all 10 proven AI Automation Use Cases with exact tools and step-by-step implementation instructions. No technical team required. Follow the steps exactly as written.</p>
+
+      <div class="guide-uc">
+        <h5>Use Case 1: AI WhatsApp Customer Support Assistant</h5>
+        <p class="uc-tools">Tools: WhatsApp Business API (via Meta or Twilio) + Make.com (free tier) + Claude API</p>
+        <ol>
+          <li>Go to business.facebook.com → Create a Meta Business account → Apply for WhatsApp Business API access under "Business Apps"</li>
+          <li>Sign up at make.com → Create new Scenario → Add a Webhooks module → Custom Webhook → Copy the URL provided</li>
+          <li>Paste that webhook URL into your WhatsApp API settings as the incoming message endpoint</li>
+          <li>Add an HTTP module in Make.com → URL: api.anthropic.com/v1/messages → Method: POST → Header: x-api-key = your Claude API key, anthropic-version = 2023-06-01 → Body type: Raw JSON</li>
+          <li>Body template: {"model":"claude-sonnet-4-6","max_tokens":500,"system":"[YOUR SYSTEM PROMPT]","messages":[{"role":"user","content":"{{incoming customer message}}"}]}</li>
+          <li>System prompt template: "You are [Business Name]'s AI assistant. Help customers with [your services]. Use same language as customer (Urdu or English). If customer wants to book, collect name, phone, preferred time. If complaint, empathize then offer solution. Never guess — if unsure say 'Our team will contact you shortly' and ask for their phone number."</li>
+          <li>Add a third module: HTTP → Send reply to WhatsApp API with AI response mapped to message body and customer phone to recipient field</li>
+          <li>Test with 10 different message types: booking request, product question, price enquiry, complaint, general query</li>
+          <li>Go live — review all conversations daily for first 7 days — improve system prompt based on any gaps</li>
+        </ol>
+        <span class="uc-result">Expected Result: 100% response rate in under 15 seconds · 40–60% of previously missed leads recovered · 160+ hours saved per month</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 2: AI Appointment Booking System (Healthcare)</h5>
+        <p class="uc-tools">Tools: Google Calendar + Make.com + WhatsApp Business API + Claude API</p>
+        <ol>
+          <li>Connect Google Calendar to Make.com using the built-in Google Calendar module — grant access and select your clinic calendar</li>
+          <li>Build this scenario flow: Patient WhatsApp message → AI extracts patient name, preferred date, service type → Make.com checks Google Calendar for free slot → If available: book it + send confirmation WhatsApp message. If not: suggest next 3 available slots</li>
+          <li>Add clinic details to system prompt: doctor names, available hours (e.g. Mon–Sat 9am–6pm), list of services with durations (e.g. Consultation: 30 min, Follow-up: 15 min)</li>
+          <li>Add reminder automation: Create a separate Make.com scenario triggered by a Google Calendar event 24 hours before → Send WhatsApp reminder to patient with appointment details and address</li>
+          <li>Test 5 booking scenarios: normal booking, full calendar day, booking for next week, asking for specific doctor, cancellation request</li>
+        </ol>
+        <span class="uc-result">Expected Result: 0 missed bookings · 30% increase in appointment show-up rate · Patients feel professionally served at 2am as much as at 9am</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 3: AI Order Tracking and Customer Support (Ecommerce)</h5>
+        <p class="uc-tools">Tools: Shopify or WooCommerce API + Make.com + WhatsApp Business API + Claude API</p>
+        <ol>
+          <li>In Make.com, add the Shopify module (or WooCommerce via HTTP) — connect using your store API key found in Shopify Admin → Apps → Private Apps</li>
+          <li>Build this flow: Customer sends order number via WhatsApp → Make.com calls Shopify API to fetch order status, tracking number, estimated delivery → Claude formats a clear, friendly reply → Send to customer</li>
+          <li>Add FAQ handling in system prompt: returns policy (paste your exact policy), product sizing guide, delivery zones, payment methods accepted, refund process</li>
+          <li>Add escalation rule in Make.com: if message contains words "refund", "damaged", "wrong", "missing" → route to separate path → send urgent email notification to your support team + tell customer "Our team will contact you within 2 hours"</li>
+          <li>Test: normal order tracking, wrong order number, refund request, product question, delivery complaint</li>
+        </ol>
+        <span class="uc-result">Expected Result: 80% reduction in support tickets · Team handles only complex issues · Customer satisfaction score rises from day one</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 4: AI Lead Recovery System (All Niches)</h5>
+        <p class="uc-tools">Tools: Make.com + Google Sheets (as CRM) + WhatsApp Business API + Claude API</p>
+        <ol>
+          <li>Export all leads who enquired but never converted — save to a Google Sheet with columns: Name, WhatsApp Number, Business Type, Problem Mentioned, Date of Last Contact</li>
+          <li>In Make.com, set up a scheduled scenario (runs every Monday at 9am) → reads Google Sheet → filters rows where Last Contact Date was more than 14 days ago</li>
+          <li>For each cold lead: Claude generates a personalized message using their name, business type, and problem mentioned — not a generic blast</li>
+          <li>Day 1: Personalized re-engagement message referencing their specific enquiry. Day 3: Share a relevant case study from your results. Day 7: Offer a free 15-minute demo call with a specific calendar link</li>
+          <li>If lead replies at any step: immediately send notification to your phone and pause the sequence for that lead</li>
+          <li>Update Google Sheet status after each message is sent</li>
+        </ol>
+        <span class="uc-result">Expected Result: 20–45% of cold leads re-engaged · 2–4 new conversations started per week from leads you thought were dead</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 5: AI RAG Knowledge Base — AI That Knows Your Business (All Niches)</h5>
+        <p class="uc-tools">Tools: Make.com or n8n + Claude API + Supabase (free) + your business documents (PDFs, Word files, FAQs)</p>
+        <ol>
+          <li>Collect all business documents: service descriptions, pricing, FAQs, product catalog, policies — convert to plain text files (.txt)</li>
+          <li>Create a free Supabase account at supabase.com → New Project → Go to SQL Editor → Run: CREATE EXTENSION IF NOT EXISTS vector; → CREATE TABLE documents (id serial primary key, content text, embedding vector(1536));</li>
+          <li>In Make.com: Read each text file → Split into 400-word chunks → For each chunk, call Claude API to generate an embedding → Store chunk + embedding in Supabase</li>
+          <li>Build the search flow: Customer question → Generate embedding → Search Supabase for 3 most similar chunks → Pass chunks + question to Claude → Claude answers based only on your documents (not hallucinated)</li>
+          <li>Embed on your website: Add a simple chat widget using a free tool like Crisp or Tawk.to configured to forward chats to your Make.com webhook</li>
+          <li>Update monthly: re-run the document upload process whenever you add new products or services</li>
+        </ol>
+        <span class="uc-result">Expected Result: 30–50% higher lead conversion rate · Every website visitor gets instant, 100% accurate answers about your business · 0 incorrect information given</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 6: AI Smart Hiring System (HR and Education Platforms)</h5>
+        <p class="uc-tools">Tools: Google Forms + Make.com + Airtable (free) + Claude API + Gmail</p>
+        <ol>
+          <li>Create a job application Google Form with fields: Full Name, Email, Phone, Years of Experience, Relevant Skills (paragraph), CV Upload (Google Drive link), Why this role? (paragraph)</li>
+          <li>In Make.com: Trigger on new Google Form submission → extract all answers → send to Claude with your job description and scoring criteria (e.g. "Score this candidate 1–10 on: relevant experience, communication quality, motivation — provide brief reasoning for each score")</li>
+          <li>Store results in Airtable: candidate name, score, Claude's reasoning, application date, status (Pending / Shortlisted / Rejected)</li>
+          <li>Auto-send email to all applicants: "Thank you for applying — you will hear from us within 48 hours" — this alone builds a professional reputation</li>
+          <li>For candidates scoring above 7/10: Auto-send a calendar scheduling link (use Calendly free tier) for a 30-minute interview slot</li>
+          <li>After interview: Send a structured email with 5 skills-based questions → Candidate replies → Forward answers to Claude for scoring → Update Airtable</li>
+        </ol>
+        <span class="uc-result">Expected Result: 70% reduction in recruiter time · Process 10x more applications · Hire in 7 days instead of 21 · Capacity to serve far more clients without adding HR staff</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 7: AI Parent Communication System (Academies and Schools)</h5>
+        <p class="uc-tools">Tools: Google Sheets + Make.com + WhatsApp Business API + Claude API</p>
+        <ol>
+          <li>Create a Google Sheet: Student Name | Parent WhatsApp | Class | Subject | Test Score | Max Marks | Teacher Name | Date</li>
+          <li>After each test or assessment: update the sheet with scores — this triggers the Make.com scenario automatically (use Google Sheets "watch rows" trigger)</li>
+          <li>Make.com sends each student's row to Claude with instruction: "Write a warm, professional WhatsApp message to the parent of [student name] who scored [score]/[max] in [subject] on [date]. Mention one strength and one area to improve. Sign off from [teacher name] at [academy name]. Write in Urdu."</li>
+          <li>Each parent receives a unique, personally written message — not a generic bulk text. This is the key difference that makes parents refer more families.</li>
+          <li>If parent replies with a question → Claude answers using the school FAQ you uploaded → If question is complex (e.g. fee dispute) → notify teacher by WhatsApp immediately</li>
+        </ol>
+        <span class="uc-result">Expected Result: 95%+ parent satisfaction · 20–40% increase in student referrals from happy parents · Teachers save 5–8 hours per week on routine communication</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 8: AI Answer Sheet Checking System (NeuralGrade Model)</h5>
+        <p class="uc-tools">Tools: Google Drive + Make.com + Claude API (Vision) + Google Sheets + WhatsApp Business API</p>
+        <ol>
+          <li>Create a shared Google Drive folder for each class — students photograph their answer sheets and upload to their class folder</li>
+          <li>Make.com monitors the folder: when new image appears → trigger scenario</li>
+          <li>Send image to Claude Vision API with instruction: "This is a student answer sheet. The answer key is: [paste answer key]. Check each answer, assign marks per question, calculate total, and provide 2-sentence feedback on the student's performance."</li>
+          <li>Claude returns: marks per question, total score, feedback text → Store in Google Sheet (Student Name, Marks, Feedback, Date)</li>
+          <li>Make.com auto-generates a result message → sends to parent WhatsApp with score and teacher feedback</li>
+          <li>Monthly: export all scores from Google Sheet → Claude generates class performance report → share with school management</li>
+        </ol>
+        <span class="uc-result">Expected Result: 90% reduction in teacher grading time · Results delivered in minutes · Consistent and fair grading · Academy can enroll more students as teachers are freed up</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 9: AI Cold Email Client Acquisition System (To Get New Business Clients)</h5>
+        <p class="uc-tools">Tools: Apollo.io (free tier) + Instantly.ai or Smartlead.ai ($37/month) + Claude API + 3–4 custom domains ($40 total)</p>
+        <ol>
+          <li>Buy 3–4 domains similar to your main domain from Namecheap or GoDaddy (e.g. if main is aibuild.com, buy get-aibuild.com and aibuildai.co) — cost approximately $40 total</li>
+          <li>Set up 2 email inboxes per domain using Google Workspace ($6/month/inbox) → Configure DNS records: SPF, DKIM, DMARC — each domain host has a guide for this</li>
+          <li>In Instantly.ai: Add your email accounts → Enable warmup for all of them → Wait 14 days before sending campaigns</li>
+          <li>In Apollo.io (free): Search by Industry = Healthcare / Ecommerce / Education → Title = CEO, Operations Manager, Practice Manager → Company Size = 10–200 employees → Export up to 50 leads free per month</li>
+          <li>Use Claude to write a 3-email sequence: Email 1 (Day 1) — 4 lines, problem-focused, no pitch. Email 2 (Day 4) — short case study with one specific result. Email 3 (Day 9) — direct ask for a 15-minute call</li>
+          <li>Upload sequence to Instantly.ai → Set daily limit: 30 emails per inbox → Launch → Monitor reply rate in dashboard</li>
+          <li>When someone replies → move conversation to WhatsApp → send sales letter → book 30-minute call</li>
+        </ol>
+        <span class="uc-result">Expected Result: 1.5–3% reply rate → 8–15 interested prospects per month → 3–5 new client conversations per month with zero ad spend</span>
+      </div>
+
+      <div class="guide-uc">
+        <h5>Use Case 10: AI Reputation and Review Generation System</h5>
+        <p class="uc-tools">Tools: Make.com + WhatsApp Business API + Claude API + Google Business Profile</p>
+        <ol>
+          <li>Get your Google Review direct link: Go to Google Business Profile dashboard → Click "Get more reviews" → Copy the direct link</li>
+          <li>In Make.com: After every completed service or delivery → trigger from your CRM or Google Sheet → send personalized WhatsApp thank-you message</li>
+          <li>Message template (Claude generates this personalized per customer): "Thank you [Name] for choosing [Business Name] for [specific service they received]. Your feedback means everything to us — if you have 60 seconds, we would love a Google review: [link]. It helps other [patients/customers/students] find us."</li>
+          <li>If customer clicks link and leaves 5-star review → auto-send second message: "Thank you so much! We would love a 30-second video testimonial if you are open to it — no editing needed, just your honest experience."</li>
+          <li>If no click within 48 hours → send one gentle follow-up with different wording: "We noticed you haven't had a chance yet — completely fine! The link stays open whenever you are ready: [link]"</li>
+          <li>If 1–3 star review appears → Make.com sends urgent alert to your phone with review text → Respond within 2 hours to resolve</li>
+        </ol>
+        <span class="uc-result">Expected Result: 4x more Google reviews in 60 days · Higher search ranking · 15–25% more organic customers finding your business</span>
+      </div>
+    </div>
+  </div>
+  <p class="ps-guarantee">P.S. We Guarantee these 10 Proven AI Use Cases ALONE will add a minimum of <span class="green">20 New Customers per Month and Save 100+ Hours of Manual Work</span> — with 0 ad spend — on Complete AUTOPILOT</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 20: FREE RESOURCE 2 ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="res-head">And here are 200+ Proven AI Automation Sales Assets to Make You The Go-To AI Expert in Your Niche in 30 Days.<br><strong>READY TO IMPLEMENT...</strong></h2>
+  <div class="res-wrapper">
+    <a class="res-toggle-link" href="#guide2" onclick="toggleGuide('guide2');return false;">&#9658; Click Here — Your Free '200' AI Automation Sales Assets: Complete Templates and Scripts</a>
+    <p class="toggle-hint">(Click the link above to open the full guide — all templates ready to copy and customize)</p>
+    <h4>Your Free '200' AI Automation Sales Assets To Grow Your Customer Base and Get 3 New Clients...</h4>
+    <p>We have prepared 200 Proven Sales Assets — posts, case studies, demo scripts, and video templates — for you. No matter if you run an agency or are a freelancer offering AI automation. These assets have worked time and time again across healthcare, ecommerce, and education niches — completely free.</p>
+    <p><span class="hl">We Guarantee if you implement these sales assets, they will instantly allow you to become an authority in AI automation — attracting more customers to your business and more clients to your agency — because potential clients will see real proof that AI works before even speaking to you.</span></p>
+    <p>If you want us to help you implement this same Sales Assets approach so you can grow your customer base and get 3 new clients in the next 30 days, <span class="hl2">(you only pay on results basis)</span> send us a message and we will have a brief chat.</p>
+
+    <div class="resource-guide" id="guide2">
+      <p class="guide-intro">6 categories of proven sales assets with exact templates. Replace every [bracketed item] with your own business details. Use these on LinkedIn, WhatsApp, in emails, and in outreach messages.</p>
+
+      <div class="asset-cat">
+        <h6>Category 1: LinkedIn Authority Posts — Post 3–5 Times Per Week to Attract Inbound Leads</h6>
+        <p>Each post follows this structure: Hook (first line) → Story or Result → CTA. The first line is everything — it decides whether anyone reads further.</p>
+        <p><strong>Template 1 — The Result Post:</strong></p>
+        <div class="asset-tpl">[Type of client, e.g. "A healthcare clinic"] was spending [X hours] per week on [manual task].
+
+We built an AI automation that handles it in [X minutes].
+
+Result after 30 days:
+→ [Specific metric — e.g. "160+ hours saved"]
+→ [Specific metric — e.g. "45 missed leads recovered"]
+→ [Revenue result — e.g. "$14,500 in new revenue"]
+
+They did not hire a single new person.
+
+If your [healthcare/ecommerce/education] business is losing [X hours] per week to [manual task] — send me a message. I will show you exactly what we built.</div>
+
+        <p><strong>Template 2 — The Before and After Post:</strong></p>
+        <div class="asset-tpl">Before AI automation:
+✗ [Pain point 1 — e.g. "Patients waited 6 hours for a reply"]
+✗ [Pain point 2 — e.g. "Team spent 40 hours/week on manual tasks"]
+✗ [Pain point 3 — e.g. "10–15 leads lost every week to competitors"]
+
+After AI automation:
+✓ [Result 1 — e.g. "AI responds in 15 seconds — 24 hours a day"]
+✓ [Result 2 — e.g. "Team focuses only on actual patient care"]
+✓ [Result 3 — e.g. "0 leads lost — every enquiry answered instantly"]
+
+This is what we built for a [industry] business.
+It runs completely on autopilot.
+
+Want to see the exact system? Comment "DEMO" below.</div>
+
+        <p><strong>Template 3 — The Shocking Stat Post (High Engagement):</strong></p>
+        <div class="asset-tpl">Most [industry] businesses are losing customers every single day because of one simple problem:
+
+Slow response time.
+
+[Statistic — e.g. "67% of customers go to a competitor if they don't get a reply within 1 hour."]
+
+Our AI responds in 15 seconds. Every time. 24/7.
+
+[Client type] went from 6-hour response time to 15 seconds.
+Result: [specific dollar result] in [timeframe].
+
+What is your business losing right now because of slow responses?</div>
+
+        <p><strong>Template 4 — The Story Post:</strong></p>
+        <div class="asset-tpl">[Client type] came to us with one problem:
+
+"[Quote their exact problem in their words]"
+
+We built an AI system in 30 days.
+
+Month 1 results:
+→ [Result]
+→ [Result]
+→ [Result]
+
+The business owner's exact words after 60 days: "[Real or reconstructed quote about the result]"
+
+This is the power of AI automation done right.
+
+If you want the same for your [industry] business — send me a message with the word "AUTOMATE".</div>
+      </div>
+
+      <div class="asset-cat">
+        <h6>Category 2: Case Study Template — Document Every Client Result in This Format</h6>
+        <p>Create one of these for every client result. Share on LinkedIn, in WhatsApp chats, in emails, and inside this sales letter. Case studies are your most powerful asset — they sell without selling.</p>
+        <div class="asset-tpl">CLIENT: [Industry] Business — [Brief description, e.g. "A WhatsApp-based ecommerce store selling 200+ products with a 3-person team"]
+
+THE PROBLEM BEFORE AI:
+[Write exactly what they were struggling with. Be specific. Use numbers where possible.
+Example: "The team was manually responding to 80–100 WhatsApp messages per day. They worked until midnight. Still, 15–20 messages went unanswered each day — and those were lost customers."]
+
+WHAT WE BUILT:
+[Name and describe the system in 2 sentences.
+Example: "We built a multi-agent AI WhatsApp Assistant that handles all incoming customer enquiries, answers product questions, recovers abandoned cart leads, and books orders — 24 hours a day, 7 days a week, in under 15 seconds per response."]
+
+RESULTS AFTER [X] DAYS:
+→ [Metric with number — e.g. "45 previously missed deals recovered"]
+→ [Metric with number — e.g. "160+ hours saved per month"]
+→ [Revenue result — e.g. "$14,500 in new revenue in 6 months"]
+→ [Customer experience metric — e.g. "4.8/5 customer satisfaction score"]
+
+CLIENT QUOTE:
+"[What they said about the result — their words, not yours]"
+
+WHAT THIS MEANS FOR YOUR BUSINESS:
+If you run a [same industry] business and are facing [same problem], we can build the same system for you — on a percentage basis. You only pay when you see results.
+
+Send us a message: [Your WhatsApp / LinkedIn / Contact Link]</div>
+      </div>
+
+      <div class="asset-cat">
+        <h6>Category 3: LinkedIn and WhatsApp Outreach Message Templates</h6>
+        <p><strong>First Message — Problem-Focused (Best Open Rate):</strong></p>
+        <div class="asset-tpl">Hi [Name],
+
+I noticed [their business/clinic/store name] — I work specifically with [their industry] businesses on AI automation.
+
+Quick question: how is your team currently handling [specific task they almost certainly do manually — e.g. "patient appointment booking" / "customer support on WhatsApp" / "answering student queries"]?
+
+Reason I ask — we just built a system for a similar business that [specific result in one line].
+
+Happy to share how it works. Worth a quick 5-minute chat?</div>
+
+        <p><strong>Second Message — Case Study Share (After Connection Accepted):</strong></p>
+        <div class="asset-tpl">Hey [Name],
+
+I put together a quick breakdown of what we built for a [their industry] business very similar to yours.
+
+Short version: they went from [before state] to [after state] in [timeframe].
+
+Full details here: [link to your sales letter or case study]
+
+If anything in there looks relevant to your business, I am happy to walk you through exactly how we would build the same for [their business name].</div>
+
+        <p><strong>Third Message — Free Demo Offer:</strong></p>
+        <div class="asset-tpl">Hi [Name],
+
+We built a live AI demo specifically for [their industry] businesses — it shows exactly how an AI agent handles [their most painful task] in real time.
+
+I will send it to you completely free. No strings at all. If you watch it and think it is not relevant, completely fine.
+
+Want me to send it over?</div>
+      </div>
+
+      <div class="asset-cat">
+        <h6>Category 4: Follow-Up Message Sequences — Send After Initial Contact</h6>
+        <p><strong>Day 3 Follow-Up — The Valuable Insight:</strong></p>
+        <div class="asset-tpl">Hey [Name] — just following up on my last message.
+
+Sharing one quick result that might be relevant to you:
+
+[Specific result from your work — e.g. "A healthcare clinic we worked with recovered 45 missed patient enquiries in their first month of using our AI system — without hiring a single new receptionist."]
+
+If you want to see exactly how it works for a business like yours, I am happy to show you in 15 minutes. Worth it?</div>
+
+        <p><strong>Day 7 Follow-Up — The Breakup Message (Gets Highest Reply Rate):</strong></p>
+        <div class="asset-tpl">Hey [Name],
+
+I will stop reaching out after this — I genuinely do not want to be annoying.
+
+But before I go: I have one open spot this month for a [their industry] business to pilot our AI system with zero upfront cost. We work on a pure percentage basis — you pay only when you see real results.
+
+If the timing is ever right for you, you know where to find me.
+
+Take care.</div>
+      </div>
+
+      <div class="asset-cat">
+        <h6>Category 5: Demo Video Script — Record on Your Phone (60 Seconds)</h6>
+        <div class="asset-tpl">SECOND 0–5 (Hook — say this looking at camera):
+"This is what happens when a [patient / customer / student] messages a [industry] business at 2am — and the team is asleep..."
+
+SECOND 5–20 (Show the problem — screen recording):
+Show WhatsApp with a customer message coming in. Show the timestamp. Show no reply for hours. Add text: "Manual response time: 6 hours average."
+
+SECOND 20–40 (Show the solution — screen recording):
+Show the AI responding instantly. Show the reply arriving in 15 seconds. Show the booking confirmation. Show a quick dashboard view with results.
+
+SECOND 40–55 (State the result — back to camera):
+"This specific client recovered 45 missed deals and added $14,500 in revenue — in 6 months. Without hiring anyone new."
+
+SECOND 55–60 (CTA):
+"If you want to see how this would work for your [industry] business specifically — send me a message right now."</div>
+      </div>
+
+      <div class="asset-cat">
+        <h6>Category 6: Objection Handling Scripts — For WhatsApp and Zoom Calls</h6>
+        <p><strong>Objection: "We already have a team handling this."</strong></p>
+        <div class="asset-tpl">"That is great — and our AI does not replace your team. It takes over the repetitive, time-consuming tasks — things like answering the same 20 questions every day, sending reminders, tracking orders — so your team can focus on the work that actually needs a human. Every business we have worked with found their team became 3x more productive within the first month."</div>
+
+        <p><strong>Objection: "How much does this cost?"</strong></p>
+        <div class="asset-tpl">"We do not charge upfront. We work on a percentage of the results we generate — if the AI does not bring you new customers or save you money, you pay nothing. The only cost is $50–100 per month for the tools that power the system — and that only starts after you have seen the results working in our demo."</div>
+
+        <p><strong>Objection: "We tried AI before and it did not work."</strong></p>
+        <div class="asset-tpl">"I completely understand — most off-the-shelf AI tools are built for everyone, which means they are built for no one in particular. What we build is completely custom — trained on your data, your customer conversations, and your specific workflows. It is not a chatbot you buy from a store. It is an AI system we design and build for your business specifically."</div>
+
+        <p><strong>Objection: "I need to think about it."</strong></p>
+        <div class="asset-tpl">"Of course — take all the time you need. I will send you one quick case study from a [their industry] business that was in the same situation. Reading it takes 3 minutes and it might help you decide either way. Fair enough?"</div>
+      </div>
+    </div>
+  </div>
+  <p class="ps-guarantee">P.S. We Guarantee these Sales Assets — which include proven post templates, AI demo scripts, hooks, and sales letters — ALONE can get you <span class="green">100 leads, 40 qualified calls, and 5 New Clients every month</span> on Complete AUTOPILOT</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 21: FREE RESOURCE 3 ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="res-head">And here is your WhatsApp AI System that guarantees more customers and 3 new clients in the next 30 days.<br><strong>READY TO IMPLEMENT...</strong></h2>
+  <div class="res-wrapper">
+    <a class="res-toggle-link" href="#guide3" onclick="toggleGuide('guide3');return false;">&#9658; Click Here — Your Free 'WhatsApp AI System' Guide: Complete Step-by-Step Build Instructions</a>
+    <p class="toggle-hint">(Click the link above to open the full guide — build your WhatsApp AI in under 7 days)</p>
+    <h4>Your Free 'WhatsApp AI System' Guide — Attract More Customers and Get 3 New Clients in the Next 30 Days...</h4>
+    <p>We have prepared a complete guide to building a WhatsApp AI Assistant system. This is where your business starts attracting and converting customers 24/7, recovering lost deals automatically, and saving 100 to 160+ hours per month — all on complete autopilot. We are giving you this system guide for free.</p>
+    <p><span class="hl">We Guarantee if you implement this system, your customer response rate will increase to 100%, your lead recovery will improve dramatically, and you will gain 3 new clients in your niche within the next 30 days.</span></p>
+    <p>If you want us to help you implement this same WhatsApp AI System so you can attract more customers and get 3 new clients in the next 30 days, <span class="hl2">(you only pay on results basis)</span> send us a message and we will have a brief chat.</p>
+
+    <div class="resource-guide" id="guide3">
+      <p class="guide-intro">This is the complete step-by-step guide to building a WhatsApp AI Customer Assistant for your business. Follow each phase in order. This exact system recovered 45 missed deals and generated $14,500 in new revenue for one client in 6 months.</p>
+
+      <div class="step-guide">
+        <h5>Phase 1: Get WhatsApp Business API Access (Days 1–3)</h5>
+        <p class="tools-line">Cost: Free (Meta API) or ~$0.005/message (Twilio option)</p>
+        <ol>
+          <li>Option A — Meta (Recommended, Free): Go to developers.facebook.com → Create developer account → Create new App → Select "Business" type → Add "WhatsApp" product from the App Dashboard → Follow the setup wizard to get a test phone number and temporary access token</li>
+          <li>Option B — Twilio (Easier for beginners): Sign up at twilio.com → Go to Messaging section → WhatsApp → Follow their guided onboarding → Connect a phone number ($1/month) → Cost is $0.005 per outgoing message</li>
+          <li>Important: You need a dedicated business phone number — do not use your personal WhatsApp number. If using Meta, apply for an official number through their business verification process (takes 1–3 days). If using Twilio, they provide a number immediately.</li>
+          <li>Download and install WhatsApp Business on your phone for testing — this is separate from your API number and useful for checking what customers see</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Phase 2: Build the Automation Workflow in Make.com (Days 3–6)</h5>
+        <p class="tools-line">Cost: Make.com free tier (1,000 operations/month) or $9/month for more volume</p>
+        <ol>
+          <li>Sign up at make.com → Click "Create a new Scenario" → Add first module: Webhooks → Custom Webhook → Click "Add" → Copy the Webhook URL that appears</li>
+          <li>In your WhatsApp API settings (Meta or Twilio): paste this webhook URL as the endpoint that receives incoming messages — this connects WhatsApp to Make.com</li>
+          <li>Add second module in Make.com: HTTP → Make a Request → Configure as follows:
+            URL: https://api.anthropic.com/v1/messages
+            Method: POST
+            Headers: Content-Type = application/json, x-api-key = [your Claude API key], anthropic-version = 2023-06-01
+            Body type: Raw (JSON)</li>
+          <li>Body template to paste (replace items in CAPS):
+            {"model":"claude-sonnet-4-6","max_tokens":500,"system":"PASTE YOUR SYSTEM PROMPT HERE","messages":[{"role":"user","content":"{{1.body.messages[0].text.body}}"}]}
+            — The "{{1.body.messages[0].text.body}}" part automatically pulls in the customer's WhatsApp message</li>
+          <li>Get your Claude API key: Go to console.anthropic.com → Sign up → Go to API Keys section → Create new key → Copy it</li>
+          <li>Add third module: HTTP → Make a Request → configured to send the AI's reply back to the customer via WhatsApp API (map the AI response to message body, customer phone number to recipient)</li>
+          <li>Connect the three modules with arrows: Webhook → AI Call → WhatsApp Reply</li>
+          <li>Click "Run once" to test — send a test WhatsApp message to your number and verify the AI replies</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Phase 3: Write Your AI System Prompt (Most Critical Step)</h5>
+        <p class="tools-line">This is what turns a generic AI into YOUR business's AI assistant — spend time on this</p>
+        <ol>
+          <li>Start with this base template and customize every section:<br>
+            "You are [Business Name]'s AI customer assistant. Your job is to help customers with questions about [list your main services/products]. Always be professional, warm, helpful, and concise — never use robotic language. Respond in the same language the customer uses (Urdu or English). Never make up information — if you genuinely do not know something, say 'Our team will get back to you on this shortly' and ask for the customer's phone number."</li>
+          <li>Add your specific business information in clear sections:
+            SERVICES: [List each service and a brief description]
+            PRICING: [List prices or say "Prices available on request"]
+            OPENING HOURS: [Your exact hours — e.g. Mon–Sat 9am–7pm, Closed Sundays]
+            LOCATION: [Your address and any directions notes]
+            HOW TO BOOK: [Exact booking process — e.g. "Customer gives name + preferred time + service → AI confirms booking"]
+            PAYMENT METHODS: [List what you accept]</li>
+          <li>Add handling rules:
+            IF customer asks to speak to a human: "Thank you for reaching out. Our team will call you within 1 hour. May I have your phone number?"
+            IF customer complains: "I am so sorry to hear this. I completely understand your frustration. Let me make sure this is resolved for you right away. Can you share your order/booking details?"
+            IF customer asks about something you don't offer: "We do not offer [X] currently, but we can help you with [closest service you do offer]."</li>
+          <li>Test your system prompt: Send 20 different customer messages to your WhatsApp — note every place the AI gives a wrong, incomplete, or awkward answer — update the system prompt to fix each one</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Phase 4: Add Smart Routing for Different Customer Types (Day 6–7)</h5>
+        <ol>
+          <li>In Make.com, add a Router module between the Webhook and the AI Call module</li>
+          <li>Route 1 — Booking requests: If message contains "appointment", "book", "schedule", "time", "available" → Send to a booking-specific flow that connects to Google Calendar (see Use Case 2 above for full setup)</li>
+          <li>Route 2 — Price enquiries: If message contains "price", "cost", "how much", "rate", "charges" → AI responds with your pricing information directly</li>
+          <li>Route 3 — Complaints and urgent issues: If message contains "complaint", "problem", "wrong", "damaged", "refund", "issue" → Immediately send email or WhatsApp notification to your personal phone + send customer a message that a team member will contact them within 1 hour</li>
+          <li>Route 4 — All other messages → Main AI response flow</li>
+          <li>Test each route with 3 sample messages each to verify correct routing</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Phase 5: Monitor, Measure, and Improve (Ongoing — Week 1 and Beyond)</h5>
+        <ol>
+          <li>Week 1: Read every single AI conversation every day — this is non-negotiable. Note where AI gave incomplete, wrong, or awkward answers.</li>
+          <li>Keep a simple "Fix Log" in Google Sheets: Date | Customer message | AI's wrong answer | What it should have said | Fix applied to system prompt</li>
+          <li>Update system prompt with each fix immediately — re-test after each update</li>
+          <li>Week 2 onwards: Review every 3 days. By end of month 1, your AI should handle 85%+ of all conversations without any errors</li>
+          <li>Track these metrics weekly in a Google Sheet: Total conversations handled | Issues escalated to human | New bookings/leads generated | Customer satisfaction (ask "Was this helpful? Reply 1 for Yes, 2 for No" at end of each resolved conversation)</li>
+          <li>Monthly: Update all product/service/pricing information in your system prompt to keep it current</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Complete Cost Breakdown</h5>
+        <p class="tools-line">WhatsApp Business API (Meta): Free after setup · Twilio alternative: $0.005/message · Make.com: Free tier or $9/month · Claude API: $5–20/month depending on volume · Total monthly running cost: $14–30/month</p>
+      </div>
+    </div>
+  </div>
+  <p class="ps-guarantee">P.S. We Guarantee if you are struggling to attract more customers consistently, this system will get you <span class="green">at least 3 NEW CLIENTS and increase your customer base by 20% to 40%</span> every month on complete automation</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 22: FREE RESOURCE 4 ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="res-head">And here is your LinkedIn AI Client Acquisition System that guarantees High-Ticket Automation Clients and a Growing Customer Base.<br><strong>READY TO IMPLEMENT...</strong></h2>
+  <div class="res-wrapper">
+    <a class="res-toggle-link" href="#guide4" onclick="toggleGuide('guide4');return false;">&#9658; Click Here — Your Free 'LinkedIn AI Clients' Guide: All 6 Elements Step-by-Step</a>
+    <p class="toggle-hint">(Click the link above to open the full guide — the complete system to close $1,500–$8,000 clients via LinkedIn)</p>
+    <h4>Your Free 'LinkedIn AI Clients' Guide — Attract More Clients and Hit $3,000 Fast...</h4>
+    <p>We have prepared a complete guide to creating your hyper-personalized LinkedIn AI Client Acquisition System. This is where you attract $3,000 to $8,000 automation clients with fewer than 2 meetings — by showing them exactly how their customer base will grow after AI automation is implemented. We are giving you this system guide for free.</p>
+    <p><span class="hl">We Guarantee if you implement this system, your outreach will convert at a significantly higher rate because you are showing prospects real proof that AI automation grows their customers — and they will beg you to build it for them.</span></p>
+    <p>If you want us to help you implement this same LinkedIn AI Clients System so you can attract more clients in the next 30 days, <span class="hl2">(you only pay on results basis)</span> send us a message and we will have a brief chat.</p>
+
+    <div class="resource-guide" id="guide4">
+      <p class="guide-intro">This is the complete LinkedIn AI Client Acquisition System — all 6 elements with exact steps. This system is how we book 30-minute WhatsApp calls with decision-makers at businesses willing to pay $1,500 to $8,000 for AI automation. Follow each element in order.</p>
+
+      <div class="step-guide">
+        <h5>Element 1: Create Your Irresistible AI Demo Lead Magnet</h5>
+        <p class="tools-line">What it is: A free document or video that demonstrates AI automation value — like the sales letter you are reading right now</p>
+        <ol>
+          <li>Choose your lead magnet format — best options ranked by conversion: (1) A sales letter document like this one showing case studies + 6 steps + free resources, (2) A short video showing an AI agent working live in your prospect's niche, (3) A PDF case study showing before/after results for a specific business type</li>
+          <li>Make it niche-specific — one lead magnet per industry. Do not make a generic one. A healthcare clinic owner responds to a document titled "How Healthcare Clinics Are Recovering Missed Patients Using AI" — not one titled "AI Automation for Businesses"</li>
+          <li>Host it on Google Drive as a shareable view-only link — anyone with the link can read it without downloading. Go to Drive → right-click file → Share → Anyone with link → Viewer → Copy link</li>
+          <li>The document must end with a clear CTA: "If you want this exact system built for your business on a percentage basis, message me with the word AUTOMATE and I will reach out within 24 hours."</li>
+          <li>Add your real contact details: WhatsApp number or LinkedIn profile URL — never a generic form</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Element 2: Target the Right Decision-Makers on LinkedIn</h5>
+        <p class="tools-line">Do this daily — 20–30 connection requests per day, 5 days per week</p>
+        <ol>
+          <li>LinkedIn Search filters to use: People → Connection level: 2nd degree → Industry: Healthcare / Retail & Ecommerce / Education Management → Current title: CEO, Founder, Co-Founder, Operations Manager, Practice Manager, Clinic Owner, Marketing Director, School Principal → Company size: 11–200 employees</li>
+          <li>Location: Start with your own city or country — warm market first. Expand after you have your first 2 clients.</li>
+          <li>Before sending connection request: Visit their profile — read their recent posts and About section. Note one specific thing about their business you can reference.</li>
+          <li>Connection request note (use this — 300 character limit):
+            "Hi [Name], I work specifically with [their industry] businesses on AI automation — helping them attract more customers without adding staff. Your work at [company] caught my attention. Would love to connect."
+            — Never pitch in the connection request. It gets ignored or declined.</li>
+          <li>Use LinkedIn's "My Network" tab to manage connection requests sent vs accepted — track your acceptance rate. A good rate is 30–50%. If lower, your profile needs improvement.</li>
+          <li>Profile must be complete before outreach: Professional headshot, banner image, clear headline (e.g. "AI Automation for Healthcare and Ecommerce Businesses — We Only Get Paid on Results"), About section explaining what you do and who for, at least 3 posts published</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Element 3: Qualify Prospects Before Sending Anything</h5>
+        <p class="tools-line">Do not send your lead magnet to everyone — only to qualified prospects. This protects your time.</p>
+        <ol>
+          <li>When connection is accepted: Do not message immediately. Visit their profile again — look for warm signals: recent posts about being overwhelmed, posts about growth, comments about manual work, job postings (indicates they are scaling)</li>
+          <li>If you see warm signals: message them within 24 hours referencing what you saw: "Saw your post about [topic] — that is exactly the problem we help [industry] businesses solve. Quick question..."</li>
+          <li>Qualifying question to ask: "Quick question — how does your team currently handle [specific manual task in their niche — e.g. 'patient appointment scheduling' / 'WhatsApp customer enquiries' / 'student result reporting']?"</li>
+          <li>Qualified response: "We do it manually" / "It takes us too much time" / "We are looking for a better way" → Move to Element 4</li>
+          <li>Unqualified response: "We have a perfect system already" → Thank them genuinely and move on: "That is great to hear — keep it up. Feel free to reach out if things change." Do not push further.</li>
+          <li>No response to qualifying question after 48 hours → Send one follow-up: "Just following up on my question — no worries if now is not a good time. Happy to connect properly whenever it suits you."</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Element 4: Send Your AI Demo Document</h5>
+        <p class="tools-line">This is where the lead magnet does the selling for you — your job is only to get them to read it</p>
+        <ol>
+          <li>Once qualified → send the lead magnet link with this exact message:
+            "Based on what you shared, I thought this might be genuinely useful. I put together a guide showing exactly how businesses like yours are automating [their pain point] — with real numbers. Here is the link: [Google Drive link]. No strings at all — read it and if anything looks relevant, we can chat. If not, completely fine."</li>
+          <li>Do not follow up for 48 hours after sending — give them time to read it. Premature follow-up kills interest.</li>
+          <li>Do not explain or summarize the document in your message. Let the document speak for itself — that is why it has to be good.</li>
+          <li>If they ask what it is before opening: "It is a case study breakdown showing how a [similar business type] automated their [pain point] and the exact results they got. Takes about 5 minutes to read."</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Element 5: Book the 30-Minute WhatsApp Call</h5>
+        <p class="tools-line">Two calls of 30 minutes each — first to understand, second to present and close</p>
+        <ol>
+          <li>After 48 hours: "Did you get a chance to look at the document? Any questions I can help clarify?"</li>
+          <li>If interested → do not go into a long explanation over text. Move to a call: "The best way I can show you exactly how this would work for [their business name] is a quick 30-minute call on WhatsApp. I will show you the live AI demo and you can ask me anything directly. When works for you — Tuesday or Thursday morning?" — Always give two options, never "whenever you are free"</li>
+          <li>Call 1 structure (30 minutes): First 10 minutes — ask them to describe their current pain in their own words. Listen more than you talk. Second 10 minutes — show the relevant live AI demo. Third 10 minutes — explain how you would build it for them specifically. End with: "Does this look like something that would solve your problem?"</li>
+          <li>If they say yes on Call 1: Schedule Call 2 within 3 days to go through specifics, timeline, and the percentage arrangement</li>
+          <li>Call 2 structure (30 minutes): Walk through exactly what you will build, the timeline (30 days to first result), how the percentage basis works, and what they need to provide (access to their systems, WhatsApp number, business information)</li>
+          <li>Close: "If you are ready to move forward, I will send you a simple agreement by WhatsApp tonight. We start as soon as you confirm." — Keep it simple. No complex contracts needed for the first engagement.</li>
+        </ol>
+      </div>
+
+      <div class="step-guide">
+        <h5>Element 6: Intentful Follow-Up System — Win 7–10 Extra Deals Every 4 Months</h5>
+        <p class="tools-line">Most deals are lost not because prospects said no — but because no one followed up properly. This system fixes that.</p>
+        <ol>
+          <li>Track all prospects in a Google Sheet: Name | Company | Industry | WhatsApp | Last Contact | Status (Interested / Thinking / No Response / Closed) | Next Follow-Up Date</li>
+          <li>After call if they say "I need to think about it" — Day 3: Send a case study from their exact industry with a one-line intro: "This reminded me of your situation — thought you would find it useful." No pitch. No pressure.</li>
+          <li>Day 7: Send a 60-second WhatsApp voice note (not a text message) — this is highly unusual and almost always gets a response. Say: "Hey [Name], just thinking about our conversation — I wanted to share one quick thing that might help you decide..." Then share one specific insight or result relevant to them.</li>
+          <li>Day 14: Share a new result or news from your work: "Just finished building an AI system for a [similar industry] client this week — they saw [result] in the first 7 days. Thought of you immediately." Still no explicit sales pitch — just consistent value.</li>
+          <li>Day 30 — Final follow-up: "I have one open spot this month for a [their industry] business on a percentage basis. Is the timing better now? I would love to work with you if it is." — This is your one direct ask. Make it count.</li>
+          <li>If they say no at Day 30: "Completely understood — no hard feelings at all. I will keep you in mind if anything relevant comes up. Feel free to reach back whenever the timing works for you." Then let them go — do not message again unless they message you. Many will come back 2–3 months later on their own initiative.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <p class="ps-guarantee">P.S. We are giving you the complete system that consists of irresistible AI demo magnets, a 10x prospect targeting formula, prospect qualification, live AI demo documents, 30-minute WhatsApp chats, and follow-ups — <span class="green">for free.</span></p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 23: TRACK RECORD ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:36px;font-weight:900;text-align:left;max-width:820px;margin-bottom:50px;">Just quickly — Our Track Record So Far:</h2>
+  <div class="track-item"><span class="gem">💎</span><span>Built and deployed AI automation systems for Healthcare clinics, Ecommerce brands, and Education platforms — every system is running 24/7 on complete autopilot with Multiple AI Agents, helping these businesses attract and serve more customers without adding extra staff</span></div>
+  <div class="track-item"><span class="gem">💎</span><span>Automated 50+ business workflows using Multiple AI Agents — from AI WhatsApp Assistants to RAG Knowledge Systems to Smart Hiring AIs — saving clients 100 to 200+ hours every single month and increasing their customer acquisition rate by 20% to 50%</span></div>
+  <div class="track-item"><span class="gem">💎</span><span>Built complete AI products from scratch — from idea to deployment — including NeuralGrade, which now generates $9,000 per month and continues to grow its student base every month on autopilot</span></div>
+  <div class="track-item"><span class="gem">💎</span><span>Deployed AI agents that have collectively generated and saved over $500,000 in operational costs and revenue growth for clients — and every single system is still running and improving today</span></div>
+  <p class="ps-block" style="margin-top:50px;"><strong>P.S. If even now it sounds too good to be true,<br>we will recommend you DO NOT GO ANY FURTHER.<br>Please leave...</strong></p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 11: WE BUILD COMPLETE AI PRODUCTS ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:44px;font-weight:900;text-transform:uppercase;max-width:900px;line-height:1.2;margin-bottom:20px;">We Do Not Just Build Automation Pipelines — <span class="green">We Build Complete AI Products</span></h2>
+  <p class="para" style="text-align:center;"><strong>NeuralGrade is the perfect example of what we can do for you.</strong></p>
+
+  <div class="product-box">
+    <h3>How NeuralGrade Was Born — From Idea to a $9,000/Month AI Product</h3>
+    <p>A client came to us with a simple idea: automate answer sheet checking and parent communication for academies. That was the entire brief. Nothing more. No technical plan. No design. No roadmap.</p>
+    <p>We took that idea, <strong>enhanced it</strong>, built it into a complete AI-powered product, deployed it, and today it is running live — generating <strong class="green">$9,000 per month</strong> for that institution and attracting more students every single month because the experience is now exceptional.</p>
+    <p><strong>This is exactly what we do for you:</strong></p>
+    <ul>
+      <li>You bring the idea — even a rough one. We will make it better.</li>
+      <li>We evaluate, enhance, and architect the entire solution.</li>
+      <li>We handle 100% of development — design, coding, AI integration, testing.</li>
+      <li>We deploy it live — from development to production, fully working.</li>
+      <li>We maintain and scale it — continuous improvement as your customer base grows.</li>
+    </ul>
+  </div>
+
+  <div style="margin-top:30px;max-width:860px;text-align:center;">
+    <p style="font-size:24px;font-weight:700;line-height:1.7;">Whether you need an <span class="green">AI automation pipeline</span> that saves 100+ hours per month, a <span class="green">custom AI product</span> built for your business or your customers, or a <span class="green">full AI platform</span> you can sell as a service — we build it. From idea to deployment. 100% done for you.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 12: SOCIAL PROOF SUMMARY ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 class="big-head">In Total — AI Systems Deployed for Businesses... Clinics... Brands... Generating Over <span class="green">$500,000</span> in Savings, Revenue Growth, and New Customer Acquisition for Clients...</h2>
+  <div class="para">These are just a handful of results shown above to help you understand that businesses just like yours are running on AI autopilot every single day — serving more customers, losing fewer leads, and growing their revenue without adding extra staff.</div>
+  <div class="para">They are saving 100 to 200+ hours every month, attracting 20% to 50% more customers, and adding $2,500 to $9,000 to their bottom line — completely automatically.</div>
+  <div class="para">We have been building AI automation systems across healthcare, ecommerce, and education — and we have refined this process to deliver real, measurable results.</div>
+  <ul class="bullet-list">
+    <li>We have deployed this for our own workflows and internal operations.</li>
+    <li>We have built and managed it for businesses in healthcare, ecommerce, and education.</li>
+    <li>We have also built full AI products from scratch for clients — from idea to deployment.</li>
+    <li>And we have fully run and maintained these systems for select clients — done 100% for them.</li>
+  </ul>
+  <div class="para"><strong>Now we are sharing it all completely FREE with you!</strong></div>
+</section>
+
+<!-- ═══════════════════════════════════ CASE STUDY 7 (after track record) ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 7:</strong> NeuralGrade AI System (Education) — We Built This as a Complete AI Product from Scratch. Automated Answer Sheet Checking and Parent Communication for an Academy. Revenue Jumped from $3,000 to $9,000/Month Because the Academy Could Now Enroll More Students and Deliver a Better Experience. An Extra $6,000 Added Every Single Month with 200% Revenue Growth.</h3>
+  </div>
+  <img src="case study 7.jpeg" alt="Case Study 7 - NeuralGrade AI" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ CASE STUDY 8 (after track record) ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 8:</strong> Real Teacher Testimonials — "Saves Time, Increases Accuracy and Grows Revenue." NeuralGrade AI Trusted by Real Teachers Across Pakistan with a CSAT Score of 4.8/5. Because of NeuralGrade, the Academy Now Handles More Students and Gets More Enrollments Every Month.</h3>
+  </div>
+  <img src="case study 8.jpeg" alt="Case Study 8 - Teacher Testimonials" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ CASE STUDY 9 (new) ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 9:</strong> Digital FTE (AI Employee) — A 24/7 AI Team Member Built for a Growing Business That Struggled to Scale Operations. Response Time Improved 95%, Lead Follow-Up Rate Increased 300%, Task Capacity Grew 10X, and Monthly Revenue Jumped from $10,000 to $25,000+ — a +150% Revenue Increase. Zero Extra Staff. Zero Missed Opportunities.</h3>
+  </div>
+  <img src="case study 9.jpeg" alt="Case Study 9 - Digital FTE AI Employee" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ CASE STUDY 10 (new) ═══════════════════════════════════ -->
+<section class="slide case-slide">
+  <div class="cs-header">
+    <h3><strong>Case Study 10:</strong> Digital FTE Live Dashboard — 4,782 Total Leads Managed, 12,645 Tasks Completed, 8,932 AI Conversations Handled, $25,000+ Revenue Generated in One Month. Automation Accuracy Rate: 98.7%. Response Time: Under 30 Seconds. System Uptime: 99.9%. Working 24/7 With Zero Human Intervention.</h3>
+  </div>
+  <img src="case study 10.jpeg" alt="Case Study 10 - Digital FTE Dashboard" class="cs-img">
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 24: RESULTS PROOF 1 ═══════════════════════════════════ -->
+<section class="slide">
+  <p style="font-size:14px;letter-spacing:2px;color:#aaa;margin-bottom:20px;text-transform:uppercase;">You did not leave? It means you are taking this SERIOUSLY...</p>
+  <h2 class="big-head">You Always Have a <strong>GROWTH PROBLEM.</strong><br>Here is How AI Automation Delivers<br><span class="green">More Customers and $2,500 – $9,500</span><br>in Results Every Month with 0 Extra Staff</h2>
+  <div class="result-stat-box">
+    <h4>AI WhatsApp Assistant — Ecommerce Client Result</h4>
+    <div class="stat-row">
+      <div class="stat-item"><div class="num">45</div><div class="label">Deals Recovered</div></div>
+      <div class="stat-item"><div class="num">160+</div><div class="label">Hours Saved Per Month</div></div>
+      <div class="stat-item"><div class="num">$14,500</div><div class="label">Revenue Added in 6 Months</div></div>
+      <div class="stat-item"><div class="num">15 sec</div><div class="label">AI Response Time</div></div>
+    </div>
+    <p class="result-text">Before Automation: Manual support, late replies, missed leads, $1,000 per month revenue. After AI Automation: 24/7 instant responses to every customer, 45 deals recovered that were previously lost, 160+ hours saved per month, $2,500+ per month in revenue — a 150% increase. Customer Satisfaction Score: 4.8 out of 5. More customers. More revenue. Zero additional staff.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 25: RESULTS PROOF 2 ═══════════════════════════════════ -->
+<section class="slide">
+  <p style="font-size:14px;letter-spacing:2px;color:#aaa;margin-bottom:20px;text-transform:uppercase;">Results from Smart Hiring AI — Education and HR Platform</p>
+  <h2 class="big-head">Smart Hiring AI Deployment —<br><span class="green">From $4,000 to $1,500 Monthly Cost.</span><br>$2,500 Saved Every Month. And the Capacity to Serve 10 Times More Clients.</h2>
+  <div class="result-stat-box">
+    <h4>Smart Hiring AI System — HR and Education Platform</h4>
+    <div class="stat-row">
+      <div class="stat-item"><div class="num">1,248</div><div class="label">Applications Processed</div></div>
+      <div class="stat-item"><div class="num">80%</div><div class="label">Faster Hiring Speed</div></div>
+      <div class="stat-item"><div class="num">$2,500</div><div class="label">Saved Per Month</div></div>
+      <div class="stat-item"><div class="num">7 Days</div><div class="label">Time to Hire (Was 21 Days)</div></div>
+    </div>
+    <p class="result-text">Before Automation: $4,000 per month in hiring costs, 21 days to make a single hire, 50 applications per day reviewed manually, top candidates dropping out because the process was too slow. After AI Automation: $1,500 per month cost, 7-day hiring, 500+ applications per day processed automatically, recruiter workload reduced by 70%, and the organization now has the capacity to take on a much higher volume of clients without increasing headcount.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 26: RESULTS PROOF 3 ═══════════════════════════════════ -->
+<section class="slide">
+  <p style="font-size:14px;letter-spacing:2px;color:#aaa;margin-bottom:20px;text-transform:uppercase;">Results from NeuralGrade AI — Built as a Complete Product from Scratch</p>
+  <h2 class="big-head">NeuralGrade Education AI —<br><span class="green">From $3,000 to $9,000 Per Month.</span><br>$6,000 Extra Every Month. More Students. Better Results.</h2>
+  <div class="result-stat-box">
+    <h4>NeuralGrade AI — Complete AI Product Built from Idea to Deployment</h4>
+    <div class="stat-row">
+      <div class="stat-item"><div class="num">$6,000</div><div class="label">Extra Per Month</div></div>
+      <div class="stat-item"><div class="num">200%</div><div class="label">Revenue Growth</div></div>
+      <div class="stat-item"><div class="num">90%</div><div class="label">Paper Checking Time Saved</div></div>
+      <div class="stat-item"><div class="num">$72,000+</div><div class="label">Extra Annual Revenue</div></div>
+    </div>
+    <p class="result-text">Before: $3,000 per month revenue, manual answer sheet checking, slow parent communication, limited student capacity, and teachers completely overwhelmed. After NeuralGrade AI was built and deployed: $9,000 per month revenue, instant automated results, WhatsApp parent follow-ups, teachers completely freed from admin work, the academy now enrolls more students every month because parents see faster results and better communication — and they refer more families. All of this from a single idea that was brought to us and turned into a fully deployed AI product.</p>
+  </div>
+  <p class="ps-block" style="margin-top:40px;font-size:22px;text-decoration:underline;">P.S. In the next slide we are doing something unimaginable... if you are not serious, do not look at it. It is something no one else is doing...</p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 27: SUMMARY & NEXT STEPS ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:52px;font-weight:900;margin-bottom:40px;">Summary And Next Steps.</h2>
+  <p class="para">If you want to attract more customers, save 100+ hours per month, and add $2,500 to $9,000 to your bottom line starting next month, you need to do the following:</p>
+  <ul class="sum-bullet">
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Identify</span> the single most painful manual process in your business that is costing you customers and revenue</span></li>
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Build</span> AI automation assets and deploy multi-agent AI systems tailored to your niche</span></li>
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Connect</span> AI to every customer touchpoint — WhatsApp, Email, Website — so no customer is ever missed again</span></li>
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Create</span> a LinkedIn and WhatsApp outreach system that shows prospects exactly how AI will grow their customer base</span></li>
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Give</span> free AI demos and implementation previews to build trust and demonstrate customer growth potential</span></li>
+    <li><span class="sum-dot">•</span><span><span style="color:#66ff66;font-weight:900;">Do</span> intentful follow-ups with all interested prospects showing them real client results</span></li>
+  </ul>
+  <p class="para">Now… you can figure this out alone, which is extremely challenging. It took years of building and refining AI systems to perfect this process and understand exactly how each system attracts more customers for each niche.</p>
+  <p class="para">Or you can take the easy path and work with us on a <strong>complete Percentage Basis.</strong></p>
+  <p class="para"><strong>HOW?...</strong></p>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 28: WHAT YOU GET ═══════════════════════════════════ -->
+<section class="slide">
+  <h2 style="font-size:34px;font-weight:900;max-width:860px;line-height:1.3;margin-bottom:50px;">If you work with us, we will set this up with you 1:1. You will get results much faster and quicker than if you were to do it alone.</h2>
+  <ul class="bullet-list">
+    <li>You will be able to identify your number one automation opportunity and design the perfect AI solution that will immediately start attracting more customers to your business...</li>
+    <li>You will have us building your custom multi-agent AI system that starts saving time and converting more customers from day one...</li>
+    <li>You will get your first fully automated workflow live within 30 days — we will build it with you or entirely for you...</li>
+    <li>You will be able to close high-ticket automation contracts using AI-powered LinkedIn and WhatsApp outreach — we will create the entire acquisition system with you...</li>
+    <li>You will make the AI system evergreen — so it is running, learning, and improving every month, consistently growing your customer base on autopilot...</li>
+    <li>And if you have a product idea, we will build it — from idea to a fully deployed AI product that generates revenue and attracts more customers for you every single month</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════ SLIDE 29: NOT A COACHING PROGRAM / CTA ═══════════════════════════════════ -->
+<section class="slide">
+  <div class="cta-box">
+    <p>The criteria is simple: you need commitment, consistent action, follow all steps, and be ready to invest $50 to $100 per month in AI tool costs (this is not our fees — this is for the tools that power your automation). If you are missing even one part, please do not message us — we will not be able to help you.</p>
+    <p>We guarantee results if you follow the process without giving excuses. Every business that has gone through this process has attracted more customers and saved significant time and money within the first 30 days.</p>
+    <p>We do not want to take more than 5 to 6 businesses at a time because we will not be able to give proper attention to everyone — so if you would like our help with this, send us a message with the word <strong>"AUTOMATE"</strong> and we will send you all the details.</p>
+    <p>
+      <a class="fb-link" href="https://www.linkedin.com/in/rubaukhan" target="_blank">&#128279; Connect on LinkedIn — linkedin.com/in/rubaukhan</a>
+    </p>
+    <p>
+      <a class="fb-link" href="https://www.yveloxy.com/" target="_blank">&#127760; Visit Portfolio — www.yveloxy.com</a>
+    </p>
+    <p>Again, this is for you if you want to attract more customers, save $2,500 to $9,000 per month, and run your business on AI autopilot — <strong>guaranteed.</strong></p>
+    <p>Take care.</p>
+  </div>
+</section>
+
+<script>
+function toggleGuide(id){
+  var el=document.getElementById(id);
+  var btn=el.previousElementSibling;
+  if(el.classList.contains('open')){
+    el.classList.remove('open');
+  } else {
+    el.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
