@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Knowledge Assistant (RAG) — Operational Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:Arial,Helvetica,sans-serif;background:#f0f2f7;color:#333;display:flex;min-height:100vh;font-size:13px;}
+
+  /* SIDEBAR */
+  .sidebar{width:196px;min-height:100vh;background:#fff;border-right:1px solid #e0e4f0;display:flex;flex-direction:column;flex-shrink:0;}
+  .sidebar-logo{padding:14px 14px;border-bottom:1px solid #e8eaf4;display:flex;align-items:center;gap:9px;}
+  .logo-circle{width:30px;height:30px;border-radius:50%;background:#4361ee;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#fff;}
+  .logo-text{font-size:13px;font-weight:700;color:#1c2136;line-height:1.2;}
+  .logo-sub{font-size:10px;color:#aaa;}
+  .nav-item{display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;color:#6b7280;font-size:12.5px;border-left:3px solid transparent;transition:all .15s;}
+  .nav-item:hover{background:#f5f6fa;color:#333;}
+  .nav-item.active{background:#eff4ff;color:#4361ee;border-left-color:#4361ee;font-weight:600;}
+  .nav-item svg{width:14px;height:14px;stroke:currentColor;fill:none;flex-shrink:0;}
+
+  /* MAIN */
+  .main{flex:1;display:flex;flex-direction:column;}
+
+  /* TOP HEADER BAR */
+  .top-bar{background:#fff;border-bottom:1px solid #e0e4f0;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;}
+  .top-bar-left{font-size:15px;font-weight:700;color:#1c2136;}
+  .top-bar-right{display:flex;align-items:center;gap:10px;}
+  .dasmoos-btn{display:flex;align-items:center;gap:5px;border:1px solid #dde0f0;border-radius:6px;padding:5px 10px;font-size:12px;color:#555;background:#fff;cursor:pointer;}
+  .dasmoos-btn svg{width:12px;height:12px;stroke:#888;fill:none;}
+  .live-btn{background:#4361ee;color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;}
+  .live-dot-sm{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+
+  .page-title{padding:10px 18px 0;font-size:14px;font-weight:700;color:#1c2136;}
+
+  .content{padding:12px 18px 18px;flex:1;}
+  .row{display:grid;gap:12px;margin-bottom:12px;}
+  .row-top{grid-template-columns:1fr 1.7fr 1.1fr;}
+  .row-bot{grid-template-columns:1.3fr 1fr 0.85fr;align-items:start;}
+
+  /* CARDS */
+  .card{background:#fff;border:1px solid #e0e4f0;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+  .card-title{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;}
+
+  /* KEY METRICS CARD */
+  .km-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+  .km-section-label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+  .km-value{font-size:22px;font-weight:700;color:#1c2136;line-height:1;}
+  .km-sub{font-size:11px;color:#4361ee;font-weight:600;margin-top:2px;}
+  .mini-bars{display:flex;align-items:flex-end;gap:3px;height:30px;margin-top:6px;}
+  .mini-bar{width:10px;border-radius:2px 2px 0 0;background:#4361ee;opacity:.7;}
+  .km-bottom{border-top:1px solid #f0f2f7;padding-top:10px;}
+  .conv-label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+  .conv-value{font-size:22px;font-weight:700;color:#1c2136;}
+  .conv-higher{font-size:12px;color:#16a34a;font-weight:600;margin-top:2px;}
+
+  /* REVENUE CARD */
+  .rev-header{margin-bottom:8px;}
+  .rev-label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;}
+  .rev-value{font-size:26px;font-weight:700;color:#1c2136;line-height:1.1;}
+  .rev-before{display:inline-block;font-size:11px;color:#e05c5c;font-weight:600;margin-left:6px;}
+  .rev-chart-wrap{height:120px;position:relative;}
+
+  /* SYSTEM ALERTS / FUNNEL TOP-RIGHT */
+  .sa-sub{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+  .horiz-funnel{display:flex;flex-direction:column;gap:5px;}
+  .hf-row{display:flex;align-items:center;gap:6px;}
+  .hf-bar-wrap{flex:1;height:22px;background:#f0f2f7;border-radius:4px;overflow:hidden;}
+  .hf-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;}
+  .hf-bar span{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
+  .hf-label{font-size:11px;color:#666;width:52px;flex-shrink:0;text-align:right;}
+
+  /* KB HEALTH TABLE */
+  .kb-tbl{width:100%;border-collapse:collapse;}
+  .kb-tbl tr{border-bottom:1px solid #f5f6fa;}
+  .kb-tbl tr:last-child{border-bottom:none;}
+  .kb-tbl td{padding:5.5px 4px;font-size:11.5px;vertical-align:middle;}
+  .kb-tbl td:first-child{color:#444;}
+  .kb-tbl td:last-child{text-align:right;white-space:nowrap;}
+  .kb-status{display:flex;align-items:center;gap:4px;justify-content:flex-end;}
+  .kb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .kb-dot.g{background:#22c55e;}
+  .kb-dot.r{background:#f97316;}
+  .kb-txt{font-size:11px;}
+  .kb-txt.g{color:#16a34a;}
+  .kb-txt.r{color:#ea580c;}
+
+  /* LEAD QUAL FUNNEL (bottom middle) */
+  .lq-funnel{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:4px;}
+  .lq-stage{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;clip-path:polygon(5% 0%,95% 0%,100% 100%,0% 100%);margin-bottom:2px;height:26px;}
+
+  /* RESULTS & ROI */
+  .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+  .res-item{background:#f8f9fc;border:1px solid #e8eaf0;border-radius:6px;padding:8px 6px;text-align:center;}
+  .res-val{font-size:16px;font-weight:700;}
+  .res-lbl{font-size:10px;color:#888;margin-top:2px;}
+
+  .core-infra{border:1px solid #fde68a;background:#fffbeb;border-radius:6px;padding:8px 10px;display:flex;align-items:flex-start;gap:7px;margin-bottom:10px;}
+  .core-icon{width:20px;height:20px;border-radius:50%;background:#fbbf24;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#fff;}
+  .core-text{font-size:11px;color:#92400e;line-height:1.4;}
+
+  .roi-title{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+  .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .roi-item{background:#eff4ff;border:1px solid #c7d7fd;border-radius:6px;padding:8px 6px;text-align:center;}
+  .roi-val{font-size:16px;font-weight:700;color:#4361ee;}
+  .roi-lbl{font-size:10px;color:#6680cc;margin-top:2px;}
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:1100px){
+    .row-top{grid-template-columns:1fr 1fr;}
+    .row-bot{grid-template-columns:1fr 1fr !important;}
+  }
+  @media (max-width:900px){
+    .sidebar{width:160px;}
+    .content{padding:10px 12px 14px;}
+    .row-top{grid-template-columns:1fr;}
+    .row-bot{grid-template-columns:1fr !important;}
+  }
+  @media (max-width:640px){
+    body{flex-direction:column;}
+    .sidebar{display:none;}
+    .main{overflow:visible;}
+    .top-bar{padding:10px 12px;flex-wrap:wrap;gap:8px;}
+    .top-bar-left{font-size:13px;}
+    .top-bar-right{flex-wrap:wrap;gap:6px;}
+    .page-title{padding:8px 12px 0;font-size:13px;}
+    .content{padding:10px 12px 14px;}
+    .row{gap:10px;margin-bottom:10px;}
+    .row-top{grid-template-columns:1fr !important;}
+    .row-bot{grid-template-columns:1fr !important;}
+    .row[style]{grid-template-columns:1fr !important;}
+    .rev-chart-wrap{height:100px;}
+    .km-value{font-size:18px;}
+    .rev-value{font-size:20px;}
+    .results-grid{grid-template-columns:1fr 1fr;}
+    .roi-grid{grid-template-columns:1fr 1fr;}
+    .lq-funnel > div{max-width:100%;}
+  }
+  @media (max-width:420px){
+    .km-top{grid-template-columns:1fr;}
+    .results-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-circle">AI</div>
+    <div>
+      <div class="logo-text">AI Knowledge</div>
+      <div class="logo-sub">RAG Assistant</div>
+    </div>
+  </div>
+
+  <nav style="padding:10px 0;flex:1;">
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Case Study Overview
+    </div>
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Live Analytics
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Revenue Impact
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
+      Knowledge Base Status
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><polyline points="18 20 22 16 18 12"/><line x1="2" y1="16" x2="22" y2="16"/><polyline points="6 4 2 8 6 12"/><line x1="22" y1="8" x2="2" y2="8"/></svg>
+      AI Statistics
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Data Figures
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/></svg>
+      Pipeline
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M16.95 16.95l1.41 1.41M4.93 19.07l1.41-1.41M7.05 7.05L5.64 5.64M21 12h-2M5 12H3M12 21v-2M12 5V3"/></svg>
+      Settings
+    </div>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">AI Knowledge Assistant (RAG)</div>
+    <div class="top-bar-right">
+      <div class="dasmoos-btn">
+        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Dasmoos
+        <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <button class="live-btn">
+        <div class="live-dot-sm"></div>
+        Live Analytics
+      </button>
+    </div>
+  </div>
+
+  <div class="page-title">Operational Dashboard</div>
+
+  <div class="content">
+
+    <!-- TOP ROW -->
+    <div class="row row-top">
+
+      <!-- KEY METRICS & LIVE DATA -->
+      <div class="card">
+        <div class="card-title">Key Metrics &amp; Live Data</div>
+
+        <div class="km-top">
+          <!-- Response Time -->
+          <div>
+            <div class="km-section-label">Response Time</div>
+            <div class="km-value">2.5 sec</div>
+            <div class="km-sub">(90% FASTER)</div>
+          </div>
+          <!-- Manual Support Hours -->
+          <div>
+            <div class="km-section-label">Manual Support Hours</div>
+            <div class="km-value">15 hr/week</div>
+            <div class="mini-bars">
+              <div class="mini-bar" style="height:12px;"></div>
+              <div class="mini-bar" style="height:28px;"></div>
+              <div class="mini-bar" style="height:18px;"></div>
+              <div class="mini-bar" style="height:22px;"></div>
+              <div class="mini-bar" style="height:14px;"></div>
+              <div class="mini-bar" style="height:20px;"></div>
+            </div>
+            <div style="display:flex;gap:3px;margin-top:2px;">
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">1</span>
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">2</span>
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">3</span>
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">4</span>
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">5</span>
+              <span style="font-size:9px;color:#bbb;width:13px;text-align:center;">6</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="km-bottom">
+          <div class="conv-label">Lead Conversions</div>
+          <div class="conv-value">42% Higher</div>
+          <div class="conv-higher">Higher</div>
+        </div>
+      </div>
+
+      <!-- REVENUE & LEAD PERFORMANCE -->
+      <div class="card">
+        <div class="card-title">Revenue &amp; Lead Performance</div>
+        <div class="rev-header">
+          <div class="rev-label">Monthly Revenue</div>
+          <div>
+            <span class="rev-value">$14,800+</span>
+            <span class="rev-before">$5,000 before RAG</span>
+          </div>
+        </div>
+        <div class="rev-chart-wrap">
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+
+      <!-- SYSTEM ALERTS & ACTIVITY FEED -->
+      <div class="card">
+        <div class="card-title">System Alerts &amp; Activity Feed</div>
+        <div class="sa-sub">Lead Qualification Status</div>
+        <div class="horiz-funnel">
+          <div class="hf-row">
+            <div class="hf-bar-wrap">
+              <div class="hf-bar" style="width:100%;background:#4361ee;">
+                <span>34,50+</span>
+              </div>
+            </div>
+            <div class="hf-label">Status</div>
+          </div>
+          <div class="hf-row">
+            <div class="hf-bar-wrap">
+              <div class="hf-bar" style="width:66%;background:#0ea5e9;">
+                <span>1,032</span>
+              </div>
+            </div>
+            <div class="hf-label">Complete</div>
+          </div>
+          <div class="hf-row">
+            <div class="hf-bar-wrap">
+              <div class="hf-bar" style="width:35%;background:#10b981;">
+                <span>12%</span>
+              </div>
+            </div>
+            <div class="hf-label">Funmel</div>
+          </div>
+          <div class="hf-row">
+            <div class="hf-bar-wrap">
+              <div class="hf-bar" style="width:14%;background:#f97316;">
+                <span></span>
+              </div>
+            </div>
+            <div class="hf-label">Turset</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW 1: KB Table | Funnel | Results at a Glance — same height -->
+    <div class="row" style="grid-template-columns:1.3fr 1fr 0.85fr;align-items:stretch;">
+
+      <!-- KNOWLEDGE BASE COVERAGE & HEALTH -->
+      <div class="card">
+        <div class="card-title">Knowledge Base Coverage &amp; Health</div>
+        <table class="kb-tbl">
+          <tr>
+            <td>Knowledge Base</td>
+            <td><div class="kb-status"><div class="kb-dot g"></div><span class="kb-txt g">Ranned 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>AI Knowledge Basic Coverage</td>
+            <td><div class="kb-status"><div class="kb-dot g"></div><span class="kb-txt g">Ranned 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>Knowledge Assistant</td>
+            <td><div class="kb-status"><div class="kb-dot r"></div><span class="kb-txt r">Disorted 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>AI Knowledge Evarage</td>
+            <td><div class="kb-status"><div class="kb-dot g"></div><span class="kb-txt g">Ranned 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>AI Knowledge Base Coverage &amp; Health</td>
+            <td><div class="kb-status"><div class="kb-dot g"></div><span class="kb-txt g">Ranned 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>Knowledge Status</td>
+            <td><div class="kb-status"><div class="kb-dot g"></div><span class="kb-txt g">Ranned 1 year ago</span></div></td>
+          </tr>
+          <tr>
+            <td>Knowledge Batus</td>
+            <td><div class="kb-status"><div class="kb-dot r"></div><span class="kb-txt r">Disorted 1 year ago</span></div></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- LEAD QUALIFICATION STATUS -->
+      <div class="card" style="display:flex;flex-direction:column;">
+        <div class="card-title">Lead Qualification Status</div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 0;">
+          <div style="width:190px;height:36px;background:#4361ee;clip-path:polygon(3% 0%,97% 0%,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">Qualification</div>
+          <div style="width:166px;height:36px;background:#0ea5e9;clip-path:polygon(3% 0%,97% 0%,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">Eumies</div>
+          <div style="width:142px;height:36px;background:#22d3ee;clip-path:polygon(3% 0%,97% 0%,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">Qualification</div>
+          <div style="width:116px;height:36px;background:#34d399;clip-path:polygon(3% 0%,97% 0%,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">Underlaser</div>
+          <div style="width:88px;height:36px;background:#f97316;clip-path:polygon(3% 0%,97% 0%,94% 100%,6% 100%);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">Funter</div>
+        </div>
+        <div style="text-align:center;padding-bottom:6px;font-size:11px;color:#888;">
+          Conversion Rate: <strong style="color:#16a34a;">12%</strong>
+        </div>
+      </div>
+
+      <!-- RESULTS AT A GLANCE -->
+      <div class="card" style="display:flex;flex-direction:column;">
+        <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;">Results at a glance</div>
+        <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div class="res-item" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="res-val" style="color:#4361ee;font-size:18px;">30%-50%</div>
+            <div class="res-lbl">More Leads</div>
+          </div>
+          <div class="res-item" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="res-val" style="color:#16a34a;font-size:18px;">90%</div>
+            <div class="res-lbl">Faster Responses</div>
+          </div>
+          <div class="res-item" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="res-val" style="color:#ea580c;font-size:18px;">70%</div>
+            <div class="res-lbl">Less Manual Work</div>
+          </div>
+          <div class="res-item" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="res-val" style="color:#0ea5e9;font-size:18px;">24/7</div>
+            <div class="res-lbl">Availability</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW 2: Core Infrastructure | ROI Summary -->
+    <div class="row" style="grid-template-columns:1fr 1fr;gap:12px;">
+
+      <div class="card" style="padding:12px;">
+        <div style="font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Core Infrastructure</div>
+        <div class="core-infra" style="margin-bottom:0;">
+          <div class="core-icon">!</div>
+          <div class="core-text">AI Knowledge Base-laterned onrated cost:snoth: Core Infrastructure</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px;">
+        <div class="roi-title">ROI Summary</div>
+        <div class="roi-grid">
+          <div class="roi-item">
+            <div class="roi-val">70%</div>
+            <div class="roi-lbl">Less Manual Work</div>
+          </div>
+          <div class="roi-item">
+            <div class="roi-val">24/7</div>
+            <div class="roi-lbl">Availability</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<script>
+const ctx = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Jan', 'Mar', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [5000, 5200, 7500, 9800, 12200, 14800],
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16,185,129,0.12)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: '#10b981',
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#fff',
+        titleColor: '#888',
+        bodyColor: '#1c2136',
+        borderColor: '#e0e4f0',
+        borderWidth: 1,
+        callbacks: { label: ctx => '$' + ctx.parsed.y.toLocaleString() }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#f5f6fa' },
+        ticks: { color: '#bbb', font: { size: 10 } }
+      },
+      y: {
+        grid: { color: '#f5f6fa' },
+        ticks: {
+          color: '#bbb',
+          font: { size: 10 },
+          callback: v => '$' + (v/1000).toFixed(0) + ',000'
+        },
+        min: 0,
+        max: 16000
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

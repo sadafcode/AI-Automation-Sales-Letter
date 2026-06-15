@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact Dashboard — AI-Powered WhatsApp Assistant</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,Helvetica,sans-serif;background:#0a0a14;color:#fff;display:flex;min-height:100vh;}
+
+/* ── Sidebar ── */
+.sidebar{width:220px;min-width:220px;background:#0d0d1f;border-right:1px solid #1e1e38;display:flex;flex-direction:column;padding:28px 0;}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 22px 32px;}
+.wa-icon{width:36px;height:36px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-icon svg{width:20px;height:20px;fill:#fff;}
+.sidebar-logo span{font-size:13px;font-weight:700;color:#fff;line-height:1.3;}
+.sidebar-logo span em{color:#25d366;font-style:normal;display:block;font-size:11px;font-weight:400;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.nav-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;padding:0 22px 10px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 22px;cursor:pointer;font-size:13px;color:#aaa;border-left:3px solid transparent;transition:all .15s;}
+.nav-item:hover,.nav-item.active{color:#66ff66;background:#11112a;border-left-color:#66ff66;}
+.nav-item svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;}
+.sidebar-bottom{margin-top:auto;padding:22px;}
+.status-dot{display:flex;align-items:center;gap:8px;font-size:11px;color:#aaa;}
+.dot{width:8px;height:8px;border-radius:50%;background:#66ff66;box-shadow:0 0 6px #66ff66;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.header{background:#0d0d1f;border-bottom:1px solid #1e1e38;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
+.header h1{font-size:16px;font-weight:700;color:#fff;line-height:1.3;}
+.header h1 span{color:#66ff66;}
+.header-right{display:flex;align-items:center;gap:12px;}
+.badge{background:#0d2a0d;border:1px solid #66ff66;color:#66ff66;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;}
+.badge.live{background:#0d2a1a;animation:pulse 2s infinite;}
+.period{font-size:11px;color:#666;background:#111;padding:4px 10px;border-radius:4px;}
+
+.content{flex:1;padding:28px 32px;overflow-y:auto;}
+
+/* ── KPI Cards ── */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;}
+.kpi-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:18px 16px;position:relative;overflow:hidden;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#66ff66;}
+.kpi-card.orange::before{background:#ffaa00;}
+.kpi-card.blue::before{background:#4488ff;}
+.kpi-card.teal::before{background:#00ccaa;}
+.kpi-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.kpi-icon svg{width:20px;height:20px;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+.kpi-icon.green{background:rgba(102,255,102,0.12);border:1px solid rgba(102,255,102,0.25);}
+.kpi-icon.green svg{stroke:#66ff66;}
+.kpi-icon.orange{background:rgba(255,170,0,0.12);border:1px solid rgba(255,170,0,0.25);}
+.kpi-icon.orange svg{stroke:#ffcc44;}
+.kpi-icon.blue{background:rgba(68,136,255,0.12);border:1px solid rgba(68,136,255,0.25);}
+.kpi-icon.blue svg{stroke:#66aaff;}
+.kpi-icon.teal{background:rgba(0,204,170,0.12);border:1px solid rgba(0,204,170,0.25);}
+.kpi-icon.teal svg{stroke:#00ddbb;}
+.kpi-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#666;margin-bottom:10px;}
+.kpi-value{font-size:28px;font-weight:900;color:#66ff66;line-height:1;}
+.kpi-card.orange .kpi-value{color:#ffcc44;}
+.kpi-card.blue .kpi-value{color:#66aaff;}
+.kpi-card.teal .kpi-value{color:#00ddbb;}
+.kpi-sub{font-size:11px;color:#888;margin-top:6px;}
+.kpi-badge{display:inline-block;background:#0d2a0d;color:#66ff66;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px;letter-spacing:.5px;}
+
+/* ── Chart Section ── */
+.chart-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:24px;}
+.chart-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:22px;}
+.chart-card h2{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.chart-subtitle{font-size:11px;color:#555;margin-bottom:18px;}
+.chart-wrap{position:relative;height:260px;}
+.chart-annotation{background:#0d2a0d;border:1px solid #66ff66;border-radius:6px;padding:12px 18px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;}
+.annotation-text{font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px;text-transform:uppercase;}
+.annotation-value{font-size:20px;font-weight:900;color:#66ff66;}
+
+/* ── Side Panel ── */
+.side-panel{display:flex;flex-direction:column;gap:16px;}
+.deal-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:18px;}
+.deal-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:14px;}
+.deal-big{font-size:52px;font-weight:900;color:#66ff66;line-height:1;}
+.deal-label{font-size:11px;color:#aaa;margin-top:4px;}
+.deal-sub{font-size:10px;color:#555;margin-top:8px;line-height:1.5;}
+
+.perf-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:18px;flex:1;}
+.perf-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:14px;}
+.perf-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #14142a;}
+.perf-row:last-child{border-bottom:none;}
+.perf-name{font-size:12px;color:#aaa;}
+.perf-val{font-size:13px;font-weight:700;color:#66ff66;}
+.perf-bar-wrap{width:80px;height:6px;background:#1e1e38;border-radius:3px;overflow:hidden;}
+.perf-bar{height:100%;background:#66ff66;border-radius:3px;}
+
+/* ── Bottom Row ── */
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.info-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:20px;}
+.info-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:14px;}
+.timeline{display:flex;flex-direction:column;gap:10px;}
+.tl-item{display:flex;gap:12px;align-items:flex-start;font-size:12px;}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:#66ff66;flex-shrink:0;margin-top:3px;}
+.tl-dot.red{background:#ff4444;}
+.tl-dot.orange{background:#ffaa00;}
+.tl-text{color:#ccc;line-height:1.45;}
+.tl-time{font-size:10px;color:#555;margin-top:2px;}
+
+.csat-card{background:#0d0d1f;border:1px solid #1e1e38;border-radius:8px;padding:20px;}
+.csat-card h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#888;margin-bottom:14px;}
+.csat-big{display:flex;align-items:flex-end;gap:8px;margin-bottom:8px;}
+.csat-score{font-size:56px;font-weight:900;color:#66ff66;line-height:1;}
+.csat-out{font-size:20px;color:#555;padding-bottom:8px;font-weight:700;}
+.stars{color:#ffcc00;font-size:22px;letter-spacing:2px;margin-bottom:10px;}
+.csat-sub{font-size:11px;color:#666;margin-bottom:16px;}
+.csat-bar-row{margin-bottom:6px;}
+.csat-bar-label{display:flex;justify-content:space-between;font-size:10px;color:#777;margin-bottom:3px;}
+.csat-bar-outer{height:5px;background:#1e1e38;border-radius:3px;overflow:hidden;}
+.csat-bar-inner{height:100%;background:#66ff66;border-radius:3px;}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1100px){
+  .kpi-row{grid-template-columns:repeat(3,1fr);}
+  .chart-grid{grid-template-columns:1fr;}
+  .bottom-row{grid-template-columns:1fr;}
+}
+@media (max-width:900px){
+  .sidebar{width:180px;min-width:180px;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .content{padding:18px 20px;}
+  .header{padding:14px 20px;}
+}
+@media (max-width:640px){
+  body{flex-direction:column;}
+  .sidebar{display:none;}
+  .main{overflow:visible;}
+  .header{padding:12px 14px;flex-wrap:wrap;gap:6px;}
+  .header h1{font-size:13px;line-height:1.4;}
+  .content{padding:12px 14px;}
+  .kpi-row{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .kpi-value{font-size:22px;}
+  .kpi-label{font-size:9px;}
+  .chart-grid{grid-template-columns:1fr;}
+  .side-panel{flex-direction:row;flex-wrap:wrap;}
+  .deal-card,.perf-card{flex:1;min-width:200px;}
+  .deal-big{font-size:38px;}
+  .bottom-row{grid-template-columns:1fr;}
+  .csat-score{font-size:44px;}
+  .chart-wrap{height:200px;}
+  .perf-bar-wrap{width:60px;}
+}
+@media (max-width:420px){
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .kpi-card{padding:12px 10px;}
+  .kpi-value{font-size:18px;}
+  .deal-big{font-size:30px;}
+  .side-panel{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wa-icon">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.119.553 4.105 1.516 5.834L.014 24l6.335-1.483A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.908a9.893 9.893 0 01-5.034-1.375l-.361-.214-3.741.981.999-3.648-.235-.374A9.886 9.886 0 012.092 12c0-5.474 4.434-9.908 9.908-9.908 5.474 0 9.908 4.434 9.908 9.908 0 5.474-4.434 9.908-9.908 9.908z"/></svg>
+    </div>
+    <span>WhatsApp AI<em>Assistant</em></span>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+  <div class="nav-item active">
+    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+    Impact Summary
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+    Revenue
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+    Deals
+  </div>
+  <div class="nav-item">
+    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+    Performance
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="status-dot">
+      <div class="dot"></div>
+      System Live
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="header">
+    <h1>Impact Dashboard — <span>AI-Powered WhatsApp Assistant</span> <span style="color:#555;font-weight:400;">(Post-Implementation)</span></h1>
+    <div class="header-right">
+      <span class="period">Q1–Q2 2026</span>
+      <span class="badge live">● LIVE</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-icon green">
+          <!-- Handshake / deal icon -->
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="kpi-label">Total Deal Recovery</div>
+        <div class="kpi-value">45</div>
+        <div class="kpi-sub">Deals Recovered</div>
+        <div class="kpi-badge">+260% Growth</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon green">
+          <!-- Dollar / revenue icon -->
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="kpi-label">Revenue Gain (6 Months)</div>
+        <div class="kpi-value">$14,500</div>
+        <div class="kpi-sub">Total Earned</div>
+        <div class="kpi-badge">+260%</div>
+      </div>
+      <div class="kpi-card orange">
+        <div class="kpi-icon orange">
+          <!-- Clock / hours icon -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="kpi-label">Manual Hours Saved</div>
+        <div class="kpi-value">160+</div>
+        <div class="kpi-sub">Hours / Month</div>
+        <div class="kpi-badge" style="background:#2a1a00;color:#ffcc44;border:none;">Automated</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-icon blue">
+          <!-- Zap / instant icon -->
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="kpi-label">Response Time Avg</div>
+        <div class="kpi-value">15</div>
+        <div class="kpi-sub">Seconds</div>
+        <div class="kpi-badge" style="background:#001a2a;color:#66aaff;border:none;">AI Instant</div>
+      </div>
+      <div class="kpi-card teal">
+        <div class="kpi-icon teal">
+          <!-- Star / CSAT icon -->
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="kpi-label">Customer Satisfaction</div>
+        <div class="kpi-value">4.8/5</div>
+        <div class="kpi-sub">CSAT Score</div>
+        <div class="kpi-badge" style="background:#002a22;color:#00ddbb;border:none;">★ Excellent</div>
+      </div>
+    </div>
+
+    <!-- CHART + SIDE PANEL -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h2>Total Revenue Gain — Q1–Q2 2026</h2>
+        <div class="chart-subtitle">Pre-Automation vs Post-Automation Monthly Revenue ($)</div>
+        <div class="chart-wrap">
+          <canvas id="revenueChart"></canvas>
+        </div>
+        <div class="chart-annotation">
+          <span class="annotation-text">Total Revenue Gain in 6 Months</span>
+          <span class="annotation-value">+$14,500 &nbsp;<span style="font-size:13px;color:#aaa;">(+260%)</span></span>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="deal-card">
+          <h3>Deals Recovered</h3>
+          <div class="deal-big">45</div>
+          <div class="deal-label">Total Deals Closed via AI</div>
+          <div class="deal-sub">
+            Jan–Feb: 12 deals (Pre-AI baseline)<br>
+            Mar–Jun: 33 deals (Post-AI recovery)
+          </div>
+        </div>
+        <div class="perf-card">
+          <h3>Performance Metrics</h3>
+          <div class="perf-row">
+            <span class="perf-name">Response Rate</span>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:97%"></div></div>
+            <span class="perf-val">97%</span>
+          </div>
+          <div class="perf-row">
+            <span class="perf-name">Lead Conversion</span>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:72%"></div></div>
+            <span class="perf-val">72%</span>
+          </div>
+          <div class="perf-row">
+            <span class="perf-name">Deals Recovered</span>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:85%"></div></div>
+            <span class="perf-val">85%</span>
+          </div>
+          <div class="perf-row">
+            <span class="perf-name">Hours Saved</span>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:90%"></div></div>
+            <span class="perf-val">90%</span>
+          </div>
+          <div class="perf-row">
+            <span class="perf-name">CSAT Score</span>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:96%;background:#00ddbb;"></div></div>
+            <span class="perf-val" style="color:#00ddbb;">4.8/5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row">
+      <div class="info-card">
+        <h3>AI Activity Log</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-text">AI sent follow-up to 8 inactive leads — 3 responded within 2 minutes</div>
+              <div class="tl-time">Today, 09:14 AM</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-text">Deal recovered: Client confirmed $800 order after AI reminder sequence</div>
+              <div class="tl-time">Today, 08:52 AM</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot orange"></div>
+            <div>
+              <div class="tl-text">Qualification completed for 14 new inbound leads — routed to sales queue</div>
+              <div class="tl-time">Yesterday, 11:30 PM</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-text">160+ manual follow-up hours replaced by AI — zero human intervention needed</div>
+              <div class="tl-time">This Month</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot red"></div>
+            <div>
+              <div class="tl-text">Pre-automation: 8 leads went cold with no follow-up (manual bottleneck)</div>
+              <div class="tl-time">Jan 2026 (Before AI)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="csat-card">
+        <h3>Customer Satisfaction Score</h3>
+        <div class="csat-big">
+          <div class="csat-score">4.8</div>
+          <div class="csat-out">/ 5</div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <div class="csat-sub">Based on 45 post-deal feedback responses</div>
+        <div class="csat-bar-row">
+          <div class="csat-bar-label"><span>5 Stars</span><span>84%</span></div>
+          <div class="csat-bar-outer"><div class="csat-bar-inner" style="width:84%"></div></div>
+        </div>
+        <div class="csat-bar-row">
+          <div class="csat-bar-label"><span>4 Stars</span><span>12%</span></div>
+          <div class="csat-bar-outer"><div class="csat-bar-inner" style="width:12%;background:#aaffaa;"></div></div>
+        </div>
+        <div class="csat-bar-row">
+          <div class="csat-bar-label"><span>3 Stars</span><span>3%</span></div>
+          <div class="csat-bar-outer"><div class="csat-bar-inner" style="width:3%;background:#ffcc44;"></div></div>
+        </div>
+        <div class="csat-bar-row">
+          <div class="csat-bar-label"><span>1–2 Stars</span><span>1%</span></div>
+          <div class="csat-bar-outer"><div class="csat-bar-inner" style="width:1%;background:#ff4444;"></div></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:#555;border-top:1px solid #1e1e38;padding-top:12px;">
+          Response time improved from <span style="color:#ff6666;">~4 hours</span> (manual) to <span style="color:#66ff66;">15 seconds</span> (AI) — customers feel heard instantly.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const ctx = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026'],
+    datasets: [
+      {
+        label: 'Pre-Automation',
+        data: [1000, 1100, null, null, null, null],
+        backgroundColor: 'rgba(255,68,68,0.75)',
+        borderColor: '#ff4444',
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+      {
+        label: 'Post-Automation',
+        data: [null, null, 1500, 2500, 3500, 4100],
+        backgroundColor: 'rgba(102,255,102,0.75)',
+        borderColor: '#66ff66',
+        borderWidth: 1,
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: { color: '#aaa', font: { size: 11 }, boxWidth: 12, padding: 16 }
+      },
+      tooltip: {
+        backgroundColor: '#0d0d1f',
+        borderColor: '#1e1e38',
+        borderWidth: 1,
+        titleColor: '#fff',
+        bodyColor: '#aaa',
+        callbacks: {
+          label: ctx => ' $' + ctx.parsed.y.toLocaleString()
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#666', font: { size: 11 } },
+        grid: { color: '#111' }
+      },
+      y: {
+        ticks: {
+          color: '#666',
+          font: { size: 11 },
+          callback: v => '$' + v.toLocaleString()
+        },
+        grid: { color: '#1a1a2e' },
+        beginAtZero: true
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

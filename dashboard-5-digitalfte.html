@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital FTE AI Employee — Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f0f2f7;
+  color: #1e293b;
+  display: flex;
+  min-height: 100vh;
+  font-size: 13px;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background: #1a2035;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.sb-logo {
+  padding: 16px 14px 14px;
+  border-bottom: 1px solid #ffffff14;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.sb-logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.sb-logo-text { font-size: 12px; font-weight: 800; color: #fff; line-height: 1.2; }
+.sb-logo-sub  { font-size: 9.5px; color: #7c9cbf; font-weight: 500; }
+
+.nav-section { padding: 10px 0; flex: 1; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  font-size: 12.5px;
+  color: #8ca3bf;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .15s;
+}
+.nav-item:hover { background: #ffffff0a; color: #cbd5e1; }
+.nav-item.active {
+  background: #2563eb22;
+  color: #60a5fa;
+  border-left-color: #2563eb;
+  font-weight: 700;
+}
+.nav-item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+.sb-online {
+  margin: 10px 10px;
+  background: #0f172a;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 10px 11px;
+}
+.sb-online-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 4px;
+}
+.online-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.4;} }
+.sb-online-name { font-size: 11.5px; font-weight: 700; color: #e2e8f0; }
+.sb-online-status { font-size: 10px; color: #22c55e; font-weight: 600; }
+.sb-online-24 { font-size: 10px; color: #64748b; }
+
+.sb-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid #ffffff14;
+}
+.sb-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #2563eb;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+}
+.sb-user-name { font-size: 11.5px; font-weight: 700; color: #e2e8f0; }
+.sb-user-role { font-size: 10px; color: #64748b; }
+
+/* ── MAIN ── */
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+/* TOP BAR */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-left h1 { font-size: 18px; font-weight: 800; color: #0f172a; }
+.topbar-left p { font-size: 11.5px; color: #64748b; margin-top: 1px; }
+.topbar-left p span { color: #2563eb; font-weight: 600; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #475569;
+  background: #fafbff;
+  cursor: pointer;
+}
+.notif-btn {
+  width: 34px; height: 34px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+.notif-badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+.export-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* CONTENT */
+.content { padding: 16px 20px 20px; flex: 1; }
+
+/* KPI ROW */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kpi {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 14px;
+  box-shadow: 0 1px 3px #0000000a;
+}
+.kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.kpi-label { font-size: 10.5px; color: #64748b; font-weight: 600; }
+.kpi-icon {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.bg-purple { background: #f3f0ff; }
+.bg-green  { background: #f0fdf4; }
+.bg-blue   { background: #eff6ff; }
+.bg-orange { background: #fff7ed; }
+.bg-pink   { background: #fdf2f8; }
+.kpi-val { font-size: 22px; font-weight: 800; color: #0f172a; line-height: 1; }
+.kpi-change {
+  display: flex; align-items: center; gap: 3px;
+  font-size: 10.5px; font-weight: 700;
+  color: #16a34a;
+  margin-top: 5px;
+}
+
+/* MID ROW */
+.mid-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1.1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 14px;
+  box-shadow: 0 1px 3px #0000000a;
+}
+.card-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.card-title { font-size: 12px; font-weight: 700; color: #0f172a; }
+.card-sub { font-size: 10.5px; color: #64748b; margin-top: 2px; }
+.period-btn {
+  font-size: 11px; color: #2563eb; font-weight: 600;
+  border: 1px solid #bfdbfe; border-radius: 5px;
+  padding: 3px 8px; cursor: pointer; background: #eff6ff;
+  white-space: nowrap; flex-shrink: 0;
+}
+.rev-big { font-size: 26px; font-weight: 800; color: #0f172a; line-height: 1; margin-bottom: 8px; }
+.chart-wrap { position: relative; }
+.chart-wrap-rev { height: 130px; }
+.chart-wrap-donut { height: 130px; }
+
+/* donut legend */
+.donut-legend { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.dl-item { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: #475569; }
+.dl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dl-pct { margin-left: auto; font-weight: 700; color: #1e293b; }
+
+/* recent activity */
+.activity-list { display: flex; flex-direction: column; gap: 7px; }
+.act-item { display: flex; align-items: flex-start; gap: 8px; }
+.act-icon {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.act-body { flex: 1; min-width: 0; }
+.act-title { font-size: 11.5px; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.act-sub { font-size: 10px; color: #94a3b8; margin-top: 1px; }
+.act-time { font-size: 10px; color: #94a3b8; flex-shrink: 0; }
+
+/* BOTTOM ROW */
+.bot-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* automation perf */
+.perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.perf-item { display: flex; align-items: center; gap: 8px; }
+.perf-icon { font-size: 18px; flex-shrink: 0; }
+.perf-val { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1; }
+.perf-lbl { font-size: 10px; color: #64748b; margin-top: 1px; }
+
+/* funnel */
+.funnel-list { display: flex; flex-direction: column; gap: 6px; }
+.funnel-item { display: flex; align-items: center; gap: 8px; }
+.funnel-bar-wrap { flex: 1; height: 26px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
+.funnel-bar {
+  height: 100%;
+  border-radius: 5px;
+  display: flex; align-items: center; padding-left: 8px;
+}
+.funnel-bar span { font-size: 11px; font-weight: 700; color: #fff; }
+.funnel-right { text-align: right; min-width: 56px; }
+.funnel-num { font-size: 12px; font-weight: 700; color: #0f172a; }
+.funnel-rate { font-size: 9.5px; color: #64748b; }
+
+/* monthly comparison */
+.mc-chart-wrap { height: 110px; position: relative; margin: 10px 0 8px; }
+.mc-badge {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 7px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.mc-pct { font-size: 22px; font-weight: 900; color: #16a34a; }
+.mc-lbl { font-size: 10.5px; color: #16a34a; font-weight: 600; margin-bottom: 2px; }
+.mc-note { font-size: 10px; color: #64748b; }
+
+/* BOTTOM BAR */
+.bottom-bar {
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.bb-item { display: flex; align-items: center; gap: 8px; justify-content: center; }
+.bb-icon { font-size: 18px; flex-shrink: 0; }
+.bb-val { font-size: 13px; font-weight: 800; color: #0f172a; }
+.bb-lbl { font-size: 10px; color: #64748b; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .mid-row { grid-template-columns: 1fr 1fr; }
+  .bot-row { grid-template-columns: 1fr 1fr; }
+  .bottom-bar { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 1000px) {
+  .sidebar { width: 170px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .mid-row { grid-template-columns: 1fr; }
+  .bot-row { grid-template-columns: 1fr; }
+  .content { padding: 12px 14px 16px; }
+}
+@media (max-width: 768px) {
+  .sidebar { width: 150px; }
+  .topbar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+  .topbar-left h1 { font-size: 15px; }
+  .topbar-right { width: 100%; justify-content: flex-end; }
+  .date-picker { font-size: 11px; padding: 5px 8px; }
+  .bottom-bar { grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px 14px; }
+}
+@media (max-width: 640px) {
+  body { flex-direction: column; }
+  .sidebar { display: none; }
+  .main { overflow: visible; }
+  .topbar { padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+  .topbar-left h1 { font-size: 14px; }
+  .topbar-right { width: 100%; }
+  .content { padding: 10px 12px 14px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .kpi-val { font-size: 18px; }
+  .kpi-label { font-size: 10px; }
+  .mid-row { grid-template-columns: 1fr; }
+  .bot-row { grid-template-columns: 1fr; }
+  .chart-wrap-rev { height: 110px; }
+  .chart-wrap-donut { height: 110px; }
+  .bottom-bar { grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px 12px; }
+  .perf-grid { grid-template-columns: 1fr 1fr; }
+  .mc-chart-wrap { height: 90px; }
+  .export-btn { font-size: 11px; padding: 6px 10px; }
+}
+@media (max-width: 420px) {
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .kpi-val { font-size: 16px; }
+  .bottom-bar { grid-template-columns: repeat(2, 1fr); }
+  .bb-val { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-icon">✦</div>
+    <div>
+      <div class="sb-logo-text">DIGITAL FTE</div>
+      <div class="sb-logo-sub">AI EMPLOYEE</div>
+    </div>
+  </div>
+
+  <nav class="nav-section">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Leads
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Conversations
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Tasks
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M16.95 16.95l1.41 1.41M4.93 19.07l1.41-1.41M7.05 7.05L5.64 5.64M21 12h-2M5 12H3M12 21v-2M12 5V3"/></svg>
+      Automations
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Customers
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Reports
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendar
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Documents
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12h3M19 12h3M12 2v3M12 19v3"/></svg>
+      Integrations
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M16.95 16.95l1.41 1.41M4.93 19.07l1.41-1.41M7.05 7.05L5.64 5.64M21 12h-2M5 12H3M12 21v-2M12 5V3"/></svg>
+      Settings
+    </div>
+  </nav>
+
+  <div class="sb-online">
+    <div class="sb-online-top">
+      <div class="online-dot"></div>
+      <div class="sb-online-name">AI EMPLOYEE</div>
+    </div>
+    <div class="sb-online-status">● ONLINE</div>
+    <div class="sb-online-24">Working 24/7</div>
+  </div>
+
+  <div class="sb-user">
+    <div class="sb-avatar">A</div>
+    <div>
+      <div class="sb-user-name">Admin</div>
+      <div class="sb-user-role">Super Admin</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h1>Dashboard Overview</h1>
+      <p>Welcome back! Your <span>AI Employee</span> is working for you.</p>
+    </div>
+    <div class="topbar-right">
+      <div class="date-picker">📅 May 01, 2025 — May 31, 2025 ▾</div>
+      <div class="notif-btn">🔔<div class="notif-badge"></div></div>
+      <button class="export-btn">↑ Export Report</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-top">
+          <div class="kpi-label">Total Leads</div>
+          <div class="kpi-icon bg-purple">👥</div>
+        </div>
+        <div class="kpi-val">4,782</div>
+        <div class="kpi-change">▲ 78.5% vs last 30 days</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <div class="kpi-label">Conversations</div>
+          <div class="kpi-icon bg-green">💬</div>
+        </div>
+        <div class="kpi-val">8,932</div>
+        <div class="kpi-change">▲ 64.2% vs last 30 days</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <div class="kpi-label">Tasks Completed</div>
+          <div class="kpi-icon bg-blue">✅</div>
+        </div>
+        <div class="kpi-val">12,645</div>
+        <div class="kpi-change">▲ 92.8% vs last 30 days</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <div class="kpi-label">Emails Sent</div>
+          <div class="kpi-icon bg-orange">✉️</div>
+        </div>
+        <div class="kpi-val">6,214</div>
+        <div class="kpi-change">▲ 71.3% vs last 30 days</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <div class="kpi-label">Revenue Impact</div>
+          <div class="kpi-icon bg-pink">💰</div>
+        </div>
+        <div class="kpi-val">$25,000+</div>
+        <div class="kpi-change">▲ 150.0% vs last 30 days</div>
+      </div>
+    </div>
+
+    <!-- MID ROW -->
+    <div class="mid-row">
+
+      <!-- Revenue Overview -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Revenue Overview</div>
+            <div class="card-sub">Total Revenue Generated</div>
+          </div>
+          <div class="period-btn">Last 30 Days ▾</div>
+        </div>
+        <div class="rev-big">$25,000+</div>
+        <div class="chart-wrap chart-wrap-rev">
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Tasks Breakdown -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Tasks Breakdown</div>
+        </div>
+        <div class="chart-wrap chart-wrap-donut" style="position:relative;">
+          <canvas id="donutChart"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+            <div style="font-size:15px;font-weight:800;color:#0f172a;">12,645</div>
+            <div style="font-size:9px;color:#94a3b8;">Total Tasks</div>
+          </div>
+        </div>
+        <div class="donut-legend">
+          <div class="dl-item"><div class="dl-dot" style="background:#2563eb;"></div>Lead Follow-Up<div class="dl-pct">34%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#16a34a;"></div>Customer Support<div class="dl-pct">24%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#7c3aed;"></div>Email Automation<div class="dl-pct">18%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#ea580c;"></div>Data Processing<div class="dl-pct">14%</div></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#94a3b8;"></div>Other Tasks<div class="dl-pct">10%</div></div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent Activity</div>
+          <span style="font-size:11px;color:#2563eb;font-weight:600;cursor:pointer;">View All</span>
+        </div>
+        <div class="activity-list">
+          <div class="act-item">
+            <div class="act-icon" style="background:#f0fdf4;">✅</div>
+            <div class="act-body">
+              <div class="act-title">Lead Follow-Up Completed</div>
+              <div class="act-sub">Lead ID: AL-21458</div>
+            </div>
+            <div class="act-time">10:24 AM</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon" style="background:#eff6ff;">📧</div>
+            <div class="act-body">
+              <div class="act-title">Result Email Sent</div>
+              <div class="act-sub">To: owner@email.com</div>
+            </div>
+            <div class="act-time">10:12 AM</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon" style="background:#f0fdf4;">💬</div>
+            <div class="act-body">
+              <div class="act-title">WhatsApp Follow-Up Sent</div>
+              <div class="act-sub">To: +92 300-1234567</div>
+            </div>
+            <div class="act-time">10:30 AM</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon" style="background:#fff7ed;">📄</div>
+            <div class="act-body">
+              <div class="act-title">New Document Processed</div>
+              <div class="act-sub">Result.pdf</div>
+            </div>
+            <div class="act-time">10:02 AM</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon" style="background:#eff6ff;">📅</div>
+            <div class="act-body">
+              <div class="act-title">Meeting Scheduled</div>
+              <div class="act-sub">With: John Doe</div>
+            </div>
+            <div class="act-time">09:56 AM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bot-row">
+
+      <!-- Automation Performance -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Automation Performance</div></div>
+        <div class="perf-grid">
+          <div class="perf-item">
+            <div class="perf-icon">🕐</div>
+            <div>
+              <div class="perf-val">142</div>
+              <div class="perf-lbl">Hours This Month<br><span style="color:#64748b;font-weight:400;">Time Saved</span></div>
+            </div>
+          </div>
+          <div class="perf-item">
+            <div class="perf-icon">🎯</div>
+            <div>
+              <div class="perf-val">98.7%</div>
+              <div class="perf-lbl">This Month<br><span style="color:#64748b;font-weight:400;">Accuracy Rate</span></div>
+            </div>
+          </div>
+          <div class="perf-item">
+            <div class="perf-icon">⚡</div>
+            <div>
+              <div class="perf-val">&lt;30 sec</div>
+              <div class="perf-lbl">Average<br><span style="color:#64748b;font-weight:400;">Response Time</span></div>
+            </div>
+          </div>
+          <div class="perf-item">
+            <div class="perf-icon">✅</div>
+            <div>
+              <div class="perf-val">99.9%</div>
+              <div class="perf-lbl">This Month<br><span style="color:#64748b;font-weight:400;">Uptime</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leads Funnel -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Leads Funnel</div></div>
+        <div class="funnel-list">
+          <div class="funnel-item">
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:100%;background:#2563eb;">
+                <span>Total Leads</span>
+              </div>
+            </div>
+            <div class="funnel-right">
+              <div class="funnel-num">4,782</div>
+              <div class="funnel-rate">Contact Rate: 81.9%</div>
+            </div>
+          </div>
+          <div class="funnel-item">
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:82%;background:#7c3aed;">
+                <span>Contacted</span>
+              </div>
+            </div>
+            <div class="funnel-right">
+              <div class="funnel-num">3,921</div>
+              <div class="funnel-rate">Qual. Rate: 48.3%</div>
+            </div>
+          </div>
+          <div class="funnel-item">
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:48%;background:#ea580c;">
+                <span>Qualified</span>
+              </div>
+            </div>
+            <div class="funnel-right">
+              <div class="funnel-num">1,893</div>
+              <div class="funnel-rate">Conv. Rate: 39.2%</div>
+            </div>
+          </div>
+          <div class="funnel-item">
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:24%;background:#16a34a;">
+                <span>Converted</span>
+              </div>
+            </div>
+            <div class="funnel-right">
+              <div class="funnel-num">742</div>
+              <div class="funnel-rate">Final Converted</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Comparison -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Monthly Comparison</div>
+          <div class="period-btn">This Month ▾</div>
+        </div>
+        <div class="mc-chart-wrap">
+          <canvas id="compChart"></canvas>
+        </div>
+        <div class="mc-badge">
+          <div class="mc-lbl">Revenue Increase</div>
+          <div class="mc-pct">+150%</div>
+          <div class="mc-note">More Leads, Faster Response, Better Results</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <div class="bb-item">
+      <div class="bb-icon">🕐</div>
+      <div>
+        <div class="bb-val">24/7</div>
+        <div class="bb-lbl">Working</div>
+      </div>
+    </div>
+    <div class="bb-item">
+      <div class="bb-icon">🎧</div>
+      <div>
+        <div class="bb-val">0</div>
+        <div class="bb-lbl">Missed Queries</div>
+      </div>
+    </div>
+    <div class="bb-item">
+      <div class="bb-icon">🤖</div>
+      <div>
+        <div class="bb-val">100%</div>
+        <div class="bb-lbl">Automation</div>
+      </div>
+    </div>
+    <div class="bb-item">
+      <div class="bb-icon">😊</div>
+      <div>
+        <div class="bb-val">500+</div>
+        <div class="bb-lbl">Happy Users</div>
+      </div>
+    </div>
+    <div class="bb-item">
+      <div class="bb-icon">💵</div>
+      <div>
+        <div class="bb-val">$15,000+</div>
+        <div class="bb-lbl">Extra Profit</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// Revenue line chart
+new Chart(document.getElementById('revenueChart'), {
+  type: 'line',
+  data: {
+    labels: ['May 01','May 06','May 11','May 16','May 21','May 26','May 31'],
+    datasets: [{
+      data: [2000, 6000, 10000, 14000, 18000, 22000, 25000],
+      borderColor: '#2563eb',
+      backgroundColor: 'rgba(37,99,235,0.08)',
+      fill: true,
+      tension: 0.4,
+      pointRadius: 3,
+      pointBackgroundColor: '#2563eb',
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: c => ' $' + c.parsed.y.toLocaleString() } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#94a3b8' } },
+      y: {
+        grid: { color: '#f1f5f9' },
+        ticks: { font: { size: 9 }, color: '#94a3b8', callback: v => '$'+(v/1000)+'k' },
+        beginAtZero: true, max: 30000
+      }
+    }
+  }
+});
+
+// Donut chart
+new Chart(document.getElementById('donutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Lead Follow-Up','Customer Support','Email Automation','Data Processing','Other Tasks'],
+    datasets: [{
+      data: [34, 24, 18, 14, 10],
+      backgroundColor: ['#2563eb','#16a34a','#7c3aed','#ea580c','#94a3b8'],
+      borderWidth: 2,
+      borderColor: '#fff',
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' ' + c.label + ': ' + c.parsed + '%' } } }
+  }
+});
+
+// Comparison bar chart
+new Chart(document.getElementById('compChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Before Digital FTE', 'After Digital FTE'],
+    datasets: [{
+      data: [10000, 25000],
+      backgroundColor: ['#cbd5e1', '#16a34a'],
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: c => ' $' + c.parsed.y.toLocaleString() } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#64748b' } },
+      y: {
+        grid: { color: '#f1f5f9' },
+        ticks: { font: { size: 9 }, color: '#94a3b8', callback: v => '$'+(v/1000)+'k' },
+        beginAtZero: true, max: 30000
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

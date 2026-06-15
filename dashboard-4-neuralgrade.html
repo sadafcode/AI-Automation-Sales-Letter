@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuralGrade AI System — Case Study</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #060e1c;
+  color: #fff;
+  font-size: 13px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(160deg, #071020 0%, #0b1e38 60%, #0a1c30 100%);
+  padding: 28px 36px 24px;
+  border-bottom: 3px solid #1a4d2e;
+}
+.hero-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+.hero-left { flex: 1; }
+.case-badge {
+  display: inline-block;
+  background: #1a4d2e;
+  color: #4ade80;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 14px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  border: 1px solid #22c55e44;
+}
+.hero-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -.5px;
+}
+.hero-subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4ade80;
+  margin-top: 4px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.hero-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 10px;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* workflow */
+.workflow {
+  background: #0d2040;
+  border: 1px solid #1e3a5f;
+  border-radius: 10px;
+  padding: 16px 20px;
+  min-width: 320px;
+  flex-shrink: 0;
+}
+.wf-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 14px;
+}
+.wf-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.wf-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #162d4a;
+  border: 1px solid #2a4a6e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.wf-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  line-height: 1.3;
+}
+.wf-arrow {
+  color: #4ade80;
+  font-size: 18px;
+  flex-shrink: 0;
+  padding: 0 4px;
+  margin-bottom: 24px;
+}
+.wf-result {
+  background: #162d4a;
+  border: 1px solid #2a4a6e;
+  border-radius: 7px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.wf-result-score { font-size: 20px; font-weight: 900; color: #4ade80; }
+.wf-result-grade { font-size: 10px; color: #94a3b8; line-height: 1.4; }
+.wf-result-wa {
+  background: #25d366;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 5px 7px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── 4-COL GRID ── */
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 3px solid #1a4d2e;
+}
+.col-header {
+  background: #0d1e38;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #e2e8f0;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  border-right: 1px solid #1e3a5f;
+  border-bottom: 2px solid #1a4d2e;
+}
+.col-header span { color: #4ade80; margin-right: 5px; }
+.col-body {
+  background: #fff;
+  padding: 12px 14px;
+  border-right: 1px solid #dde4f0;
+  border-bottom: 1px solid #dde4f0;
+  min-height: 200px;
+}
+.col-body:last-child { border-right: none; }
+
+.prob-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 11.5px;
+  color: #2d3748;
+  line-height: 1.4;
+}
+.x-icon { color: #dc2626; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+.sol-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 11.5px;
+  color: #2d3748;
+  line-height: 1.4;
+}
+.check-icon { color: #16a34a; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.sol-intro { font-size: 11.5px; color: #444; line-height: 1.5; margin-bottom: 10px; }
+
+.feat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.feat-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.feat-name { font-size: 11px; font-weight: 700; color: #1a202c; }
+.feat-desc { font-size: 10.5px; color: #64748b; margin-top: 1px; line-height: 1.4; }
+
+.tech-item {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a202c;
+  padding: 7px 0;
+  border-bottom: 1px solid #f0f2f7;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+.tech-item:last-child { border-bottom: none; }
+
+/* ── BUSINESS IMPACT ── */
+.impact {
+  background: #0d1e38;
+  border-top: 3px solid #1a4d2e;
+  border-bottom: 3px solid #1a4d2e;
+  padding: 20px 36px;
+}
+.section-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #e2e8f0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.impact-card {
+  background: #071424;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+.impact-icon { font-size: 24px; margin-bottom: 8px; }
+.impact-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.impact-value {
+  font-size: 38px;
+  font-weight: 900;
+  color: #4ade80;
+  line-height: 1;
+}
+
+/* ── REVENUE IMPACT ── */
+.revenue {
+  background: #040c18;
+  padding: 24px 36px;
+  border-bottom: 3px solid #1a4d2e;
+}
+.rev-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr 1fr;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.rev-arrow-big {
+  font-size: 36px;
+  color: #4ade80;
+  text-align: center;
+}
+.rev-box {
+  border-radius: 8px;
+  padding: 18px 20px;
+  text-align: center;
+}
+.rev-box.before { background: #1c0a0a; border: 2px solid #7f1d1d; }
+.rev-box.after  { background: #0a1c0e; border: 2px solid #14532d; }
+.rev-box.gain   { background: #0a1428; border: 2px solid #1e3a5f; }
+.rev-box-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.rev-box.before .rev-box-label { background: #7f1d1d; color: #fca5a5; }
+.rev-box.after  .rev-box-label { background: #14532d; color: #86efac; }
+.rev-box.gain   .rev-box-label { background: #1e3a5f; color: #93c5fd; }
+.rev-monthly {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.rev-amount-before { font-size: 42px; font-weight: 900; color: #ef4444; line-height: 1; }
+.rev-amount-after  { font-size: 42px; font-weight: 900; color: #4ade80; line-height: 1; }
+.rev-amount-gain   { font-size: 42px; font-weight: 900; color: #60a5fa; line-height: 1; }
+.rev-note { font-size: 10.5px; color: #94a3b8; margin-top: 6px; line-height: 1.4; }
+.rev-growth { font-size: 20px; font-weight: 900; color: #60a5fa; margin-top: 4px; }
+
+/* ── HOW IT DRIVES ── */
+.drives {
+  background: #071020;
+  padding: 20px 36px;
+  border-bottom: 3px solid #1a4d2e;
+}
+.drives-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.drive-card {
+  background: #0d1e38;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 14px;
+}
+.drive-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+}
+.drive-body { font-size: 11px; color: #64748b; line-height: 1.5; }
+
+/* ── ANNUAL ── */
+.annual {
+  background: #0d1e38;
+  padding: 20px 36px;
+  border-bottom: 3px solid #1a4d2e;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.annual-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.annual-center { text-align: center; flex-shrink: 0; }
+.annual-amount { font-size: 44px; font-weight: 900; color: #4ade80; line-height: 1; }
+.annual-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+.annual-desc { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+/* ── TAGLINE ── */
+.tagline {
+  background: #040c18;
+  text-align: center;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #e2e8f0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 3px solid #1a4d2e;
+}
+
+/* ── REVIEWS ── */
+.reviews {
+  background: #071020;
+  padding: 36px 36px 40px;
+}
+.reviews-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.reviews-badge span {
+  font-size: 10px;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid #f59e0b44;
+  padding: 3px 12px;
+  border-radius: 20px;
+}
+.reviews-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.reviews-sub {
+  text-align: center;
+  font-size: 12.5px;
+  color: #64748b;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.review-card {
+  background: #0d1e38;
+  border: 1px solid #1e3a5f;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+.review-quote {
+  font-size: 40px;
+  color: #1e3a5f;
+  font-weight: 900;
+  line-height: 1;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+.review-stars { color: #f59e0b; font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+.review-text { font-size: 12px; color: #cbd5e1; line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+.review-author { display: flex; align-items: center; gap: 10px; }
+.review-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+.av-purple { background: #7c3aed; }
+.av-pink   { background: #db2777; }
+.av-blue   { background: #2563eb; }
+.review-name { font-size: 12.5px; font-weight: 700; color: #e2e8f0; }
+.review-role { font-size: 11px; color: #64748b; margin-top: 1px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .drives-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: 1fr 1fr; }
+  .rev-grid { grid-template-columns: 1fr; gap: 12px; }
+  .rev-arrow-big { display: none; }
+  .hero { padding: 22px 24px 20px; }
+}
+@media (max-width: 900px) {
+  .hero-inner { flex-direction: column; gap: 16px; }
+  .workflow { min-width: unset; width: 100%; }
+  .hero-title { font-size: 26px; }
+  .grid4 { grid-template-columns: 1fr 1fr; }
+  .grid4 > *:nth-child(1) { order: 1; }
+  .grid4 > *:nth-child(5) { order: 2; }
+  .grid4 > *:nth-child(2) { order: 3; }
+  .grid4 > *:nth-child(6) { order: 4; }
+  .grid4 > *:nth-child(3) { order: 5; }
+  .grid4 > *:nth-child(7) { order: 6; }
+  .grid4 > *:nth-child(4) { order: 7; }
+  .grid4 > *:nth-child(8) { order: 8; }
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .impact-value { font-size: 28px; }
+  .annual { flex-direction: column; gap: 12px; text-align: center; padding: 18px 20px; }
+  .annual-label { white-space: normal; text-align: center; }
+  .impact { padding: 16px 20px; }
+  .revenue { padding: 18px 20px; }
+  .drives { padding: 16px 20px; }
+  .reviews { padding: 24px 20px 28px; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 16px 14px; }
+  .hero-title { font-size: 20px; }
+  .hero-desc { font-size: 11px; }
+  .wf-steps { gap: 0; }
+  .wf-icon { width: 36px; height: 36px; font-size: 16px; }
+  .wf-label { font-size: 8px; }
+  .wf-arrow { font-size: 14px; }
+  .grid4 { grid-template-columns: 1fr; }
+  .col-body { min-height: auto; }
+  .impact { padding: 14px; }
+  .impact-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .impact-value { font-size: 26px; }
+  .revenue { padding: 14px; }
+  .rev-grid { grid-template-columns: 1fr; }
+  .rev-amount-before, .rev-amount-after, .rev-amount-gain { font-size: 32px; }
+  .drives { padding: 14px; }
+  .drives-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .reviews { padding: 20px 14px 24px; }
+  .reviews-title { font-size: 20px; }
+  .annual { padding: 14px; gap: 10px; }
+  .annual-amount { font-size: 34px; }
+  .section-title { font-size: 13px; letter-spacing: 1px; }
+  .tagline { font-size: 11px; padding: 10px; }
+}
+@media (max-width: 420px) {
+  .hero-title { font-size: 17px; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+  .drives-grid { grid-template-columns: 1fr; }
+  .annual-amount { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="case-badge">★ Case Study</div>
+      <div class="hero-title">NEURALGRADE AI SYSTEM</div>
+      <div class="hero-subtitle">Automated Answer Sheet Checking &amp; Parent Communication System</div>
+      <div class="hero-desc">We automated the entire evaluation and communication workflow to save time, improve accuracy and increase revenue.</div>
+    </div>
+    <div class="workflow">
+      <div class="wf-steps">
+        <div class="wf-step">
+          <div class="wf-icon">📄</div>
+          <div class="wf-label">Paper Image<br>Upload</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">🤖</div>
+          <div class="wf-label">Automatic<br>Checking</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">📊</div>
+          <div class="wf-label">Result<br>Generated</div>
+        </div>
+        <div class="wf-arrow">→</div>
+        <div class="wf-step">
+          <div class="wf-icon">✉️</div>
+          <div class="wf-label">Email Sent<br>to Parents</div>
+        </div>
+      </div>
+      <div class="wf-result">
+        <div>
+          <div class="wf-result-score">85/100</div>
+          <div class="wf-result-grade">Grade: A<br>Goal: A ✓</div>
+        </div>
+        <div style="color:#64748b;font-size:20px;">→</div>
+        <div class="wf-result-wa">NO REPLY?<br>AUTO FOLLOW UP<br>ON WHATSAPP 💬</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 4-COLUMN GRID ── -->
+<div class="grid4">
+  <!-- PROBLEM -->
+  <div class="col-header"><span>1.</span> Problem</div>
+  <div class="col-header"><span>2.</span> Solution</div>
+  <div class="col-header"><span>3.</span> Features</div>
+  <div class="col-header"><span>4.</span> Tech Stack</div>
+
+  <!-- PROBLEM body -->
+  <div class="col-body">
+    <div class="prob-item"><span class="x-icon">✖</span>Teachers spend hours manually checking papers</div>
+    <div class="prob-item"><span class="x-icon">✖</span>High workload leads to delays in results</div>
+    <div class="prob-item"><span class="x-icon">✖</span>Communication with parents is manual and time-consuming</div>
+    <div class="prob-item"><span class="x-icon">✖</span>Parents don't get instant answers to their queries</div>
+    <div class="prob-item"><span class="x-icon">✖</span>No follow-up system for unreplied messages</div>
+    <div class="prob-item"><span class="x-icon">✖</span>All this limits growth and affects student satisfaction</div>
+  </div>
+
+  <!-- SOLUTION body -->
+  <div class="col-body">
+    <div class="sol-intro">NeuralGrade AI automates the entire evaluation and communication process.</div>
+    <div class="sol-item"><span class="check-icon">✔</span>Upload paper image</div>
+    <div class="sol-item"><span class="check-icon">✔</span>AI checks and evaluates instantly</div>
+    <div class="sol-item"><span class="check-icon">✔</span>Results are generated with accuracy</div>
+    <div class="sol-item"><span class="check-icon">✔</span>Automatic email sent to parents</div>
+    <div class="sol-item"><span class="check-icon">✔</span>If no reply, automatic WhatsApp follow-up</div>
+    <div class="sol-item"><span class="check-icon">✔</span>Parents get instant replies to their queries</div>
+  </div>
+
+  <!-- FEATURES body -->
+  <div class="col-body">
+    <div class="feat-item">
+      <div class="feat-icon">📤</div>
+      <div><div class="feat-name">Paper Image Upload</div><div class="feat-desc">Upload answer sheet images directly into the system</div></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">🤖</div>
+      <div><div class="feat-name">AI Automated Checking</div><div class="feat-desc">AI reads, evaluates and calculates marks accurately</div></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">⚡</div>
+      <div><div class="feat-name">Instant Result Generation</div><div class="feat-desc">Results are ready in seconds with detailed analysis</div></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">✉️</div>
+      <div><div class="feat-name">Automatic Email Delivery</div><div class="feat-desc">Results are emailed to parents instantly</div></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">💬</div>
+      <div><div class="feat-name">WhatsApp Follow-Up</div><div class="feat-desc">If no reply, system follows up automatically on WhatsApp</div></div>
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon">💡</div>
+      <div><div class="feat-name">Instant Query Response</div><div class="feat-desc">Parents get instant answers to any result-related questions</div></div>
+    </div>
+  </div>
+
+  <!-- TECH STACK body -->
+  <div class="col-body">
+    <div class="tech-item">Python</div>
+    <div class="tech-item">OpenAI / OCR</div>
+    <div class="tech-item">FastAPI</div>
+    <div class="tech-item">Database (PostgreSQL)</div>
+    <div class="tech-item">Email Automation</div>
+    <div class="tech-item">WhatsApp API</div>
+    <div class="tech-item">Cloud Infrastructure</div>
+  </div>
+</div>
+
+<!-- ── BUSINESS IMPACT ── -->
+<div class="impact">
+  <div class="section-title">Business Impact</div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-icon">🕐</div>
+      <div class="impact-label">Paper Checking Time<br>Reduced By</div>
+      <div class="impact-value">90%</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">👩‍🏫</div>
+      <div class="impact-label">Teacher Workload<br>Reduced By</div>
+      <div class="impact-value">80%</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">✉️</div>
+      <div class="impact-label">Parent Response Rate<br>Increased By</div>
+      <div class="impact-value">70%</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">📈</div>
+      <div class="impact-label">Result Delivery Time<br>Improved By</div>
+      <div class="impact-value">95%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REVENUE IMPACT ── -->
+<div class="revenue">
+  <div class="section-title">Revenue Impact (Real Numbers)</div>
+  <div class="rev-grid">
+    <div class="rev-box before">
+      <div class="rev-box-label">Before NeuralGrade</div>
+      <div class="rev-monthly">Monthly Revenue</div>
+      <div class="rev-amount-before">$3,000</div>
+      <div class="rev-note">Manual Process<br>Limited Students</div>
+    </div>
+    <div class="rev-arrow-big">→</div>
+    <div class="rev-box after">
+      <div class="rev-box-label">After NeuralGrade</div>
+      <div class="rev-monthly">Monthly Revenue</div>
+      <div class="rev-amount-after">$9,000</div>
+      <div class="rev-note">Automated Process<br>More Students, Better Experience</div>
+    </div>
+    <div class="rev-box gain">
+      <div class="rev-box-label">Revenue Increase</div>
+      <div class="rev-amount-gain">$6,000</div>
+      <div class="rev-note" style="color:#93c5fd;font-weight:700;">Per Month</div>
+      <div class="rev-growth">200%<br><span style="font-size:13px;color:#64748b;font-weight:600;">Revenue Growth</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HOW IT DRIVES REVENUE ── -->
+<div class="drives">
+  <div class="section-title">How It Drives More Revenue</div>
+  <div class="drives-grid">
+    <div class="drive-card">
+      <div class="drive-title">⚡ Faster Results</div>
+      <div class="drive-body">Deliver results in minutes, attracting more students and repeat enrollments.</div>
+    </div>
+    <div class="drive-card">
+      <div class="drive-title">👨‍👩‍👧 Better Parent Satisfaction</div>
+      <div class="drive-body">Instant communication and responses build trust and increase retention.</div>
+    </div>
+    <div class="drive-card">
+      <div class="drive-title">📚 More Capacity</div>
+      <div class="drive-body">Teachers can handle more students without extra staff or cost.</div>
+    </div>
+    <div class="drive-card">
+      <div class="drive-title">🏆 Professional Experience</div>
+      <div class="drive-body">Automated system gives a modern, premium experience that justifies higher fees.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ANNUAL REVENUE ── -->
+<div class="annual">
+  <div class="annual-label">Annual Revenue<br>Increase</div>
+  <div style="color:#1a4d2e;font-size:28px;">→</div>
+  <div class="annual-center">
+    <div class="annual-amount">$72,000+</div>
+    <div class="annual-sub">Extra Revenue Per Year With Full Automation</div>
+  </div>
+  <div style="width:1px;background:#1e3a5f;align-self:stretch;margin:0 8px;"></div>
+  <div class="annual-desc">NeuralGrade not only saves time, it helps your business earn more by improving efficiency, accuracy and parent satisfaction.</div>
+</div>
+
+<!-- ── TAGLINE ── -->
+<div class="tagline">Automate Any Process. Save Time. Increase Revenue.</div>
+
+<!-- ── TEACHER REVIEWS ── -->
+<div class="reviews">
+  <div class="reviews-badge">
+    <span>🏅 &nbsp;What Teachers Say</span>
+  </div>
+  <div class="reviews-title">Trusted by Real Teachers</div>
+  <div class="reviews-sub">From Pakistan's classrooms — honest feedback from teachers who use<br>NeuralGrade every day.</div>
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-text">"This tool is very easy to use and has a simple interface, which allows teachers to quickly upload papers and start checking without any difficulty. It significantly saves time and makes the paper checking process much faster and more efficient. I would definitely recommend this tool to other teachers who want to simplify their checking process."</div>
+      <div class="review-author">
+        <div class="review-avatar av-purple">EZ</div>
+        <div>
+          <div class="review-name">Eman Zainab</div>
+          <div class="review-role">Lecturer (Computer) · SCAT Degree College</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-text">"As a teacher, I found Neural Grade extremely helpful for checking my exams and tests. I simply upload pictures of my students' answer sheets along with the question paper, and that's all. All the hectic tasks are done by the website automatically. It saves me a lot of time and reduces the stress of checking many copies. For me, it is a very convenient and efficient tool for teachers."</div>
+      <div class="review-author">
+        <div class="review-avatar av-pink">NF</div>
+        <div>
+          <div class="review-name">Nain Fatima</div>
+          <div class="review-role">Lecturer (English) · SCAT Degree College</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-quote">"</div>
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <div class="review-text">"It is very easy to use and time saving for teachers."</div>
+      <div class="review-author">
+        <div class="review-avatar av-blue">AT</div>
+        <div>
+          <div class="review-name">Anonymous Teacher</div>
+          <div class="review-role">Teacher · Pakistan</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
